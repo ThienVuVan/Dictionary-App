@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bluenhat">#95ECFF</color>
+    <color name="bluedam">#2764FD</color>
 </resources>
