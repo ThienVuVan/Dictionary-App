@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bluenhat">#95ECFF</color>
     <color name="bluedam">#2764FD</color>
+    <color name="gray">#DCDCDC</color>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp">
+
+        <EditText
+            android:layout_width="389dp"
+            android:layout_height="58dp"
+            android:background="@drawable/round_conner"
+            android:drawableRight="@drawable/icons8_search"
+            android:hint="Tìm từ của bạn"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
