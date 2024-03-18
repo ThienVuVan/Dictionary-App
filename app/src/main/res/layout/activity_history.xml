@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/top_navigation_bar_name_tu_cua_ban"
+            app:navigationIcon="@drawable/icons8_search"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/headerbar_layout" />
+
+    <ListView
+        android:layout_width="389dp"
+        android:layout_height="456dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_conner"
+        tools:listitem="@layout/item_dic" />
+
+
+
+</LinearLayout>

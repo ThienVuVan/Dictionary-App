@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">dictionary</string>
+    <string name="top_navigation_bar_name_tu_da_tra">Từ đã tra</string>
+    <string name="top_navigation_bar_name_tu_cua_ban">Từ của bạn</string>
 </resources>
