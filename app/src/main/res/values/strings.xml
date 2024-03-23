@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">dictionary</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="anh_viet_fragment">Tiếng Việt</string>
+    <string name="anh_anh_fragment">Tiếng Anh</string>
 </resources>
