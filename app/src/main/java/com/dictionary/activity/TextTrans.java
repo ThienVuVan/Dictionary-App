@@ -1,4 +1,4 @@
-package com.dictionary;
+package com.dictionary.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import com.dictionary.R;
 
 public class TextTrans extends AppCompatActivity {
     Toolbar toolbar;
