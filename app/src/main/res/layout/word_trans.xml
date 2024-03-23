@@ -37,6 +37,7 @@
             android:text="hello"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
         <ImageButton
             android:id="@+id/favorButton"
             android:layout_width="wrap_content"
@@ -47,6 +48,7 @@
             android:contentDescription="favor"
             android:src="@drawable/ic_favor"
             app:tint="@color/white" />
+
         <ImageButton
             android:id="@+id/noteButton"
             android:layout_width="wrap_content"
@@ -70,6 +72,53 @@
             app:tint="@color/white" />
 
 
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawableRight="@drawable/ic_keyboard"
+            android:hint="Search..."
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+
     </androidx.appcompat.widget.Toolbar>
+
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/tablayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--                <com.google.android.material.tabs.TabItem-->
+<!--                    android:id="@+id/tab_anhviet"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Anh-Việt" />-->
+
+<!--                <com.google.android.material.tabs.TabItem-->
+<!--                    android:id="@+id/tab_anhanh"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Anh-Anh" />-->
+
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
+    <androidx.viewpager.widget.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>
