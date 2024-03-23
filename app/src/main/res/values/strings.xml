@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">dictionary</string>
-<<<<<<< HEAD
-    <string name="top_navigation_bar_name_tu_da_tra">Từ đã tra</string>
-    <string name="top_navigation_bar_name_tu_cua_ban">Từ của bạn</string>
-=======
     <!-- TODO: Remove or change this placeholder text -->
     <string name="anh_viet_fragment">Tiếng Việt</string>
     <string name="anh_anh_fragment">Tiếng Anh</string>
->>>>>>> 84a9716fa1ef605e280ee59b832e7cb2d6b939ca
+    <string name="top_navigation_bar_name_tu_cua_ban">Tiếng Anh</string>
 </resources>
