@@ -1,20 +1,19 @@
 package com.dictionary.model;
 
-import java.util.List;
-
 public class Word {
     private int id;
     private String original_text;
     private String type;
     private String translated_text;
     private String definition;
-    private List<String> synonyms;
-    private List<String> antonyms;
+    private String synonyms;
+    private String antonyms;
     private String example;
+    private Integer isMark;
 
     // Constructors
     public Word(int id, String original_text, String type, String translated_text, String definition,
-                List<String> synonyms, List<String> antonyms, String example) {
+                String synonyms, String antonyms, Integer isMark, String example) {
         this.id = id;
         this.original_text = original_text;
         this.type = type;
@@ -23,6 +22,7 @@ public class Word {
         this.synonyms = synonyms;
         this.antonyms = antonyms;
         this.example = example;
+        this.isMark = isMark;
     }
 
     // Getters and Setters
@@ -66,27 +66,34 @@ public class Word {
         this.definition = definition;
     }
 
-    public List<String> getSynonyms() {
-        return synonyms;
-    }
-
-    public void setSynonyms(List<String> synonyms) {
-        this.synonyms = synonyms;
-    }
-
-    public List<String> getAntonyms() {
-        return antonyms;
-    }
-
-    public void setAntonyms(List<String> antonyms) {
-        this.antonyms = antonyms;
-    }
-
     public String getExample() {
         return example;
     }
 
     public void setExample(String example) {
         this.example = example;
+    }
+    public String getSynonyms() {
+        return synonyms;
+    }
+
+    public String getAntonyms() {
+        return antonyms;
+    }
+
+    public void setSynonyms(String synonyms) {
+        this.synonyms = synonyms;
+    }
+
+    public void setAntonyms(String antonyms) {
+        this.antonyms = antonyms;
+    }
+
+    public Integer getMark() {
+        return isMark;
+    }
+
+    public void setMark(Integer mark) {
+        isMark = mark;
     }
 }
