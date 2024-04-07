@@ -21,6 +21,7 @@ public class MyDB extends SQLiteOpenHelper {
     public static final String Antonyms = "Antonyms";
     public static final String Example = "Example";
     public static final String IsMark = "IsMark";
+    public static final String Audio = "Audio";
 
 
     public MyDB(@Nullable Context context) {
@@ -39,10 +40,9 @@ public class MyDB extends SQLiteOpenHelper {
                 + Synonyms + " TEXT, "
                 + Antonyms + " TEXT, "
                 + IsMark + " INTEGER, "
-                + Example + " TEXT)";
-        db.execSQL(createWordTableSQL);
+                + Example + " TEXT, "
+                + Audio + " TEXT)";
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordTable);
@@ -61,6 +61,7 @@ public class MyDB extends SQLiteOpenHelper {
         values.put(Antonyms, word.getAntonyms());
         values.put(IsMark, word.getMark());
         values.put(Example, word.getExample());
+        values.put(Audio, word.getAudio());
         db.insert(WordTable, null, values);
         db.close();
     }
@@ -81,7 +82,8 @@ public class MyDB extends SQLiteOpenHelper {
                         cursor.getString(5),
                         cursor.getString(6),
                         cursor.getInt(7),
-                        cursor.getString(8)
+                        cursor.getString(8),
+                        cursor.getString(9)
                 );
                 list.add(word);
             } while (cursor.moveToNext());
@@ -90,3 +92,12 @@ public class MyDB extends SQLiteOpenHelper {
         return list;
     }
 }
+
+/*
+get mark word -> list<word>
+update mark word
+delete mark word
+delete word
+get all word
+add word
+ */

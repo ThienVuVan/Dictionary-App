@@ -9,11 +9,12 @@ public class Word {
     private String synonyms;
     private String antonyms;
     private String example;
+    private String audio;
     private Integer isMark;
 
     // Constructors
     public Word(int id, String original_text, String type, String translated_text, String definition,
-                String synonyms, String antonyms, Integer isMark, String example) {
+                String synonyms, String antonyms, Integer isMark, String example, String audio) {
         this.id = id;
         this.original_text = original_text;
         this.type = type;
@@ -22,6 +23,26 @@ public class Word {
         this.synonyms = synonyms;
         this.antonyms = antonyms;
         this.example = example;
+        this.isMark = isMark;
+        this.audio = audio;
+    }
+
+    public Word() {
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
+    }
+
+    public Integer getIsMark() {
+        return isMark;
+    }
+
+    public void setIsMark(Integer isMark) {
         this.isMark = isMark;
     }
 
@@ -95,5 +116,21 @@ public class Word {
 
     public void setMark(Integer mark) {
         isMark = mark;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "id=" + id +
+                ", original_text='" + original_text + '\'' +
+                ", type='" + type + '\'' +
+                ", translated_text='" + translated_text + '\'' +
+                ", definition='" + definition + '\'' +
+                ", synonyms='" + synonyms + '\'' +
+                ", antonyms='" + antonyms + '\'' +
+                ", example='" + example + '\'' +
+                ", audio='" + audio + '\'' +
+                ", isMark=" + isMark +
+                '}';
     }
 }
