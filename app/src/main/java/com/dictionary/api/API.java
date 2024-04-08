@@ -7,10 +7,11 @@ import retrofit2.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class API {
 
-    public static CompletableFuture<Word> getWord(String text) {
+    public static CompletableFuture<Word> getWordEnglish(String text) {
         CompletableFuture<Word> future = new CompletableFuture<>();
 
         // call api dictionary
@@ -43,7 +44,7 @@ public class API {
                     }
 
                     // call api yandex
-                    getTranslate(text).thenAccept(translation -> {
+                    getTranslate(text, 1).thenAccept(translation -> {
                         word.setTranslated_text(translation);
                         future.complete(word);
                     }).exceptionally(throwable -> {
@@ -64,33 +65,75 @@ public class API {
         return future;
     }
 
-    public static CompletableFuture<String> getTranslate(String text) {
+    public static CompletableFuture<String> getTranslate(String text, Integer mode) {
         CompletableFuture<String> future = new CompletableFuture<>();
 
-        Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
-                .getTranslation(
-                        "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
-                        text,
-                        "en-vi");
-
-        callYandex.enqueue(new Callback<TranslationResponse>() {
-            @Override
-            public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    TranslationResponse translationResponse = response.body();
-                    String translation = Arrays.toString(translationResponse.getText());
-                    future.complete(translation);
-                } else {
-                    future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
+        if(mode == 1){
+            Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
+                    .getTranslation(
+                            "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
+                            text,
+                            "en-vi");
+            callYandex.enqueue(new Callback<TranslationResponse>() {
+                @Override
+                public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        TranslationResponse translationResponse = response.body();
+                        String translation = Arrays.toString(translationResponse.getText());
+                        future.complete(translation);
+                    } else {
+                        future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
-                future.completeExceptionally(throwable);
-            }
-        });
+                @Override
+                public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
+                    future.completeExceptionally(throwable);
+                }
+            });
+        }else {
+            Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
+                    .getTranslation(
+                            "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
+                            text,
+                            "vi-en");
+            callYandex.enqueue(new Callback<TranslationResponse>() {
+                @Override
+                public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        TranslationResponse translationResponse = response.body();
+                        String translation = Arrays.toString(translationResponse.getText());
+                        future.complete(translation);
+                    } else {
+                        future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
+                    future.completeExceptionally(throwable);
+                }
+            });
+        }
 
         return future;
     }
+
+    public static CompletableFuture<Word> getWordVietNam(String text) {
+        CompletableFuture<Word> future = new CompletableFuture<>();
+
+        // call api yandex to translate from Vietnamese to English
+        getTranslate(text, 2).thenCompose(englishText -> {
+            // call api dictionary to get the meaning of the translated English word
+            return getWordEnglish(englishText);
+        }).thenAccept(word -> {
+            future.complete(word);
+        }).exceptionally(throwable -> {
+            future.completeExceptionally(throwable);
+            return null;
+        });
+        return future;
+    }
+
+
 }
