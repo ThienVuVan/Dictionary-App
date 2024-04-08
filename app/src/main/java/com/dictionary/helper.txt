@@ -1,0 +1,29 @@
+// call api for word trans (english -> vietnamese)
+API.getWordEnglish("hello").thenAccept(word -> {
+    System.out.println(word);
+    // take this word to view to screen
+}).exceptionally(throwable -> {
+    throwable.printStackTrace();
+    return null;
+});
+
+// call api for text translate
+API.getTranslate("nguyen is a dog!").thenAccept(text -> {
+    System.out.println(text);
+    // take this text to view to screen
+}).exceptionally(throwable -> {
+    throwable.printStackTrace();
+    return null;
+});
+
+// call api for word trans (vietnamese -> english)
+API.getWordVietNam("xin chào").thenAccept(word -> {
+    System.out.println(word);
+    // take this word to view to screen
+}).exceptionally(throwable -> {
+    throwable.printStackTrace();
+    return null;
+});
+
+
+
