@@ -32,7 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        btnDel = findViewById(R.id.btnDelete);
+        btnDel = findViewById(R.id.btnDel);
         btnSelectAll = findViewById(R.id.btnSelectAll);
         listViewHistory = findViewById(R.id.listHistory);
         searchtext = findViewById(R.id.searchText);
@@ -58,10 +58,21 @@ public class HistoryActivity extends AppCompatActivity {
         listViewHistory.setAdapter(adapter);
     }
     public void selectAll(){
-        for(int i=0;i<listViewHistory.getChildCount(); i++){
-            View v = listViewHistory.getChildAt(i);
-            CheckBox cb = v.findViewById(R.id.itemCheck);
-            cb.setChecked(true);
+        if(btnSelectAll.getText().toString().equals("Đánh dấu tất cả")){
+            for(int i=0;i<listViewHistory.getChildCount(); i++){
+                View v = listViewHistory.getChildAt(i);
+                CheckBox cb = v.findViewById(R.id.checkItem);
+                cb.setChecked(true);
+                btnSelectAll.setText("Bỏ qua");
+            }
+        }else{
+            for(int i=0;i<listViewHistory.getChildCount(); i++){
+                View v = listViewHistory.getChildAt(i);
+                CheckBox cb = v.findViewById(R.id.checkItem);
+                cb.setChecked(false);
+                btnSelectAll.setText("Đánh dấu tất cả");
+            }
         }
+
     }
 }

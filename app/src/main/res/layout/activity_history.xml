@@ -17,14 +17,51 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/headerbar_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="389dp"
+            android:layout_height="58dp"
+            android:background="@drawable/round_conner"
+            android:drawableRight="@drawable/icons8_search"
+            android:hint="Tìm từ của bạn"
+            android:padding="10dp" />
+
+    </LinearLayout>
 
     <ListView
+        android:id="@+id/listHistory"
         android:layout_width="389dp"
-        android:layout_height="456dp"
+        android:layout_height="578dp"
         android:layout_gravity="center"
         android:background="@drawable/round_conner"
         tools:listitem="@layout/item_dic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnDel"
+            android:text="Xóa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="120dp"/>
+        <Button
+            android:id="@+id/btnSelectAll"
+            android:text="Đánh dấu tất cả"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 
 
