@@ -17,13 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class YourWordActivity extends AppCompatActivity {
-    private TextView SearchText;
-    private Button btnDel;
-    private Button btnMarkAll;
-    private ListView listView;
-    private ArrayList<Word>  listWord;
-    private HistoryAdapter adapter;
-    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
