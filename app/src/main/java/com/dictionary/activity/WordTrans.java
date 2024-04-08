@@ -28,12 +28,6 @@ public class WordTrans extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.backButton);
         searchEditText = (EditText) findViewById(R.id.searchEditText);
 
-        tabLayout = findViewById(R.id.tablayout);
-        viewPager = findViewById(R.id.viewpager);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 //        Xử lí xuất hiện search bar
         searchEditText.setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
