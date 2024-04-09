@@ -26,7 +26,7 @@ API.getWordVietNam("xin chào").thenAccept(word -> {
 });
 
 // user db
-MyDB myDB = MyDB.getInstance(this);
+MyDB.getInstance(this);
 myDB.getAllWords();
 
 

@@ -27,6 +27,18 @@ public class Word {
         this.audio = audio;
     }
 
+    public Word(String original_text, String type, String translated_text, String definition, String synonyms, String antonyms, String example, String audio, Integer isMark) {
+        this.original_text = original_text;
+        this.type = type;
+        this.translated_text = translated_text;
+        this.definition = definition;
+        this.synonyms = synonyms;
+        this.antonyms = antonyms;
+        this.example = example;
+        this.audio = audio;
+        this.isMark = isMark;
+    }
+
     public Word() {
     }
 
