@@ -14,11 +14,7 @@
             android:theme="@style/Theme.Dictionary"
             tools:targetApi="31">
         <activity
-<<<<<<< Updated upstream
-                android:name=".activity.WordTrans"
-=======
-                android:name=".activity.HistoryActivity"
->>>>>>> Stashed changes
+                android:name=".MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
