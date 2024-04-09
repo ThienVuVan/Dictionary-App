@@ -36,7 +36,7 @@ public class WordTrans extends AppCompatActivity {
                 if (searchEditText.getVisibility() == View.GONE) {
                     // Hiển thị EditText và ẩn các nút khác
                     searchEditText.setVisibility(View.VISIBLE);
-                    findViewById(R.id.toolbar_title).setVisibility(View.GONE);
+//                    findViewById(R.id.toolbar_title).setVisibility(View.GONE);
                     findViewById(R.id.favorButton).setVisibility(View.GONE);
                     findViewById(R.id.noteButton).setVisibility(View.GONE);
                     searchButton.setVisibility(View.GONE);
@@ -49,7 +49,7 @@ public class WordTrans extends AppCompatActivity {
             public void onClick(View v) {
                 if (searchButton.getVisibility() == View.GONE) {
                     searchEditText.setVisibility(View.GONE);
-                    findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
+//                    findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
                     findViewById(R.id.favorButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.noteButton).setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.VISIBLE);
