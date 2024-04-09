@@ -17,6 +17,7 @@ import com.dictionary.activity.TextTrans;
 import com.dictionary.activity.WordTrans;
 import com.dictionary.activity.YourWordActivity;
 import com.dictionary.api.API;
+import com.dictionary.db.MyDB;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnVietAnh,btnTextTrans,btnYourword,btnHistory,btnSetting;

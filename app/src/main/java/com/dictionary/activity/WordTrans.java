@@ -88,7 +88,16 @@ public class WordTrans extends AppCompatActivity {
                                 txtSyn.setText(newWord.getSynonyms());
                                 txtAnt.setText(newWord.getAntonyms());
                                 txtExample.setText(newWord.getExample());
-                                // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                                // gọi api xem word đã có trong table chưa, api trả về true/false
+                                // nếu có thì ko lưu
+                                // ko có thì lưu word vào db
+                                // nếu ấn mark word
+                                // gọi api lấy ra word để ấy id của word
+                                // sau đó gọi api đdánh dấu mark word
+                                // khi đánh dấu thành công thì thay đổi màu ngôi sao
+                                // note: cách gọi ra db như sau
+                                // MyDB myDB = MyDB.getInstance(this);
+                                // myDB.getAllWords();
                             })
                             .exceptionally(throwable -> {
                                 throwable.printStackTrace();

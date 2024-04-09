@@ -22,10 +22,17 @@ public class MyDB extends SQLiteOpenHelper {
     public static final String Example = "Example";
     public static final String IsMark = "IsMark";
     public static final String Audio = "Audio";
+    private static MyDB instance;
 
-
-    public MyDB(@Nullable Context context) {
+    private MyDB(@Nullable Context context) {
         super(context, "DictionaryDB", null, 1);
+    }
+
+    public static synchronized MyDB getInstance(Context context) {
+        if (instance == null) {
+            instance = new MyDB(context.getApplicationContext());
+        }
+        return instance;
     }
 
     @Override
@@ -139,6 +146,40 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(WordTable, WordId + " = ?", new String[]{String.valueOf(wordId)});
         db.close();
+    }
+
+    public boolean isWordExists(String originalText) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(WordTable, new String[]{WordId}, OriginalText + "=?",
+                new String[]{originalText}, null, null, null);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    public Word getWordByOriginalText(String originalText) {
+        Word word = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(WordTable, null, OriginalText + "=?",
+                new String[]{originalText}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            word = new Word(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getInt(7),
+                    cursor.getString(8),
+                    cursor.getString(9)
+            );
+            cursor.close();
+        }
+        db.close();
+        return word;
     }
 
 }
