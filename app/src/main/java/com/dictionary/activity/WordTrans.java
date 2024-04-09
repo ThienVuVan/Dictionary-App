@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 import com.google.android.material.tabs.TabLayout;
 
@@ -92,7 +94,25 @@ public class WordTrans extends AppCompatActivity {
                                 txtSyn.setText(newWord.getSynonyms());
                                 txtAnt.setText(newWord.getAntonyms());
                                 txtExample.setText(newWord.getExample());
-                                // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                                // gọi api xem word đã có trong table chưa, api trả về true/false
+                                // nếu có thì ko lưu
+                                // ko có thì lưu word vào db
+                                // nếu ấn mark word
+                                // gọi api lấy ra word để ấy id của word
+                                // sau đó gọi api đdánh dấu mark word
+                                // khi đánh dấu thành công thì thay đổi màu ngôi sao
+                                // note: cách gọi ra db như sau
+                                // MyDB myDB = MyDB.getInstance(this);
+                                // myDB.getAllWords();
+                                MyDB db = MyDB.getInstance(getApplicationContext());
+                                if(!db.isWordExists(newWord.getOriginal_text())){
+                                    // lưu vào db
+                                    db.addWord(newWord);
+                                    Log.d("MyDB", "done");
+                                }else {
+                                    Log.d("MyDB", "Từ đã tồn tại trong cơ sở dữ liệu: " + newWord.getOriginal_text());
+                                }
+
                             })
                             .exceptionally(throwable -> {
                                 throwable.printStackTrace();

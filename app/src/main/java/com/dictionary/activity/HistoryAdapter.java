@@ -54,52 +54,52 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        if(v ==null){
-            v = inflater.inflate(R.layout.item_dic,null);
-        }
-        TextView txtWord =v.findViewById(R.id.txtWord);
-        txtWord.setText(data.get(position).getOriginal_text());
-        TextView txtDefine =v.findViewById(R.id.txtDefine);
-        txtDefine.setText(data.get(position).getDefinition());
-        ImageButton audioBtn = v.findViewById(R.id.btnAudio);
-        ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
-        if (data.get(position).getMark() == 1) {
-            addToYourWord.setBackgroundResource(R.drawable.star_fill);
-        } else {
-            addToYourWord.setBackgroundResource(R.drawable.ic_favor);
-        }
-        
-        audioBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playAudio(data.get(position).getAudio());
-                Toast.makeText(activity,"test",Toast.LENGTH_SHORT).show();
-            }
-        });
-        addToYourWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyDB myDB = new MyDB(activity);
-                if(data.get(position).getMark() == 1){
-                    myDB.updateMark(data.get(position).getId(),0);
-                    data.get(position).setMark(0);
-                    updateData(data);
-
-                }else{
-                    myDB.updateMark(data.get(position).getId(),1);
-                    data.get(position).setMark(1);
-                    updateData(data);
-
-                }
-            }
-        });
-    
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity,"test",Toast.LENGTH_LONG).show();
-            }
-        });
+//        if(v ==null){
+//            v = inflater.inflate(R.layout.item_dic,null);
+//        }
+//        TextView txtWord =v.findViewById(R.id.txtWord);
+//        txtWord.setText(data.get(position).getOriginal_text());
+//        TextView txtDefine =v.findViewById(R.id.txtDefine);
+//        txtDefine.setText(data.get(position).getDefinition());
+//        ImageButton audioBtn = v.findViewById(R.id.btnAudio);
+//        ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
+//        if (data.get(position).getMark() == 1) {
+//            addToYourWord.setBackgroundResource(R.drawable.star_fill);
+//        } else {
+//            addToYourWord.setBackgroundResource(R.drawable.ic_favor);
+//        }
+//
+//        audioBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                playAudio(data.get(position).getAudio());
+//                Toast.makeText(activity,"test",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        addToYourWord.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MyDB myDB = new MyDB(activity);
+//                if(data.get(position).getMark() == 1){
+//                    myDB.updateMark(data.get(position).getId(),0);
+//                    data.get(position).setMark(0);
+//                    updateData(data);
+//
+//                }else{
+//                    myDB.updateMark(data.get(position).getId(),1);
+//                    data.get(position).setMark(1);
+//                    updateData(data);
+//
+//                }
+//            }
+//        });
+//
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(activity,"test",Toast.LENGTH_LONG).show();
+//            }
+//        });
         return v;
     }
     public void playAudio(String audioUrl){

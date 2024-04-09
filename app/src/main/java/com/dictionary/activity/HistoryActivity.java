@@ -132,5 +132,4 @@ public class HistoryActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
-
 }
