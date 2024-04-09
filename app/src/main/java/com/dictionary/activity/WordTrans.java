@@ -6,15 +6,24 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.model.Word;
 import com.google.android.material.tabs.TabLayout;
 
 public class WordTrans extends AppCompatActivity {
+    private TextView txtTranslated;
+    private TextView txtWord;
+    private TextView txtDefination;
+    private TextView txtSyn;
+    private TextView txtAnt;
+    private TextView txtExample;
     Toolbar toolbar;
     ImageButton searchButton, backButton;
     EditText searchEditText;
@@ -28,6 +37,12 @@ public class WordTrans extends AppCompatActivity {
         searchButton = (ImageButton) findViewById(R.id.searchButton);
         backButton = (ImageButton) findViewById(R.id.backButton);
         searchEditText = (EditText) findViewById(R.id.searchEditText);
+        txtTranslated  = findViewById(R.id.translated_textview);
+        txtDefination = findViewById(R.id.definitions_textview);
+        txtSyn = findViewById(R.id.synonyms_textview);
+        txtAnt = findViewById(R.id.antonyms_textview);
+        txtExample = findViewById(R.id.example_textview);
+        txtWord = findViewById(R.id.word_textview);
 
 //        Xử lí xuất hiện search bar
         searchEditText.setVisibility(View.GONE);
@@ -57,19 +72,32 @@ public class WordTrans extends AppCompatActivity {
                 }
             }
         });
-
+        searchEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
+                    API.getWordEnglish(searchEditText.getText().toString())
+                            .thenAccept(word -> {
+                                Word newWord = word;
+                                txtWord.setText(newWord.getOriginal_text());
+                                txtTranslated.setText(newWord.getTranslated_text());
+                                txtDefination.setText(newWord.getDefinition());
+                                txtSyn.setText(newWord.getSynonyms());
+                                txtAnt.setText(newWord.getAntonyms());
+                                txtExample.setText(newWord.getExample());
+                                // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                            })
+                            .exceptionally(throwable -> {
+                                throwable.printStackTrace();
+                                return null;
+                            });
+                }
+                return false;
+            }
+        });
 
 //      xử lý sự kiện ấn search ở đây, gọi api dưới đây
         // lấy text
-        API.getWordEnglish("hello")
-                .thenAccept(word -> {
-                    System.out.println(word);
-                    // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
-                })
-                .exceptionally(throwable -> {
-                    throwable.printStackTrace();
-                    return null;
-                });
 
     }
 }

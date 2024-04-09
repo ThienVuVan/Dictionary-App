@@ -98,14 +98,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnAnhViet"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_margin="8px"
             android:text="Anh-Việt" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnVietAnh"
             android:layout_width="180dp"
             android:layout_margin="8px"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
         android:layout_margin="8dp">
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtTranslate"
                 android:layout_width="match_parent"
                 android:layout_height="121dp"
                 android:background="@drawable/rounded_edittext"

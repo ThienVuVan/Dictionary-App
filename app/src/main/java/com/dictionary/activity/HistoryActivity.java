@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +45,23 @@ public class HistoryActivity extends AppCompatActivity {
         searchtext = findViewById(R.id.searchText);
         db = new MyDB(HistoryActivity.this);
         listWordHitory = db.getAllWords();
+        searchtext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s.toString());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         btnSelectAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +93,27 @@ public class HistoryActivity extends AppCompatActivity {
         }
 
     }
+    //delete word on database
+    public void DeleteWord(int id){
+        for (int i = listViewHistory.getChildCount() - 1; i >= 0; i--) {
+            View v = listViewHistory.getChildAt(i);
+            CheckBox cb = v.findViewById(R.id.checkItem);
+
+            // Check if the checkbox is checked
+            if (cb.isChecked()) {
+                // Get the corresponding Word object
+                Word word = listWordHitory.get(i);
+                // Delete the word from the database using its ID
+                db.deleteWord(word.getId());
+                // Remove the word from the list
+                listWordHitory.remove(i);
+            }
+        }
+        // Notify the adapter that the dataset has changed
+        adapter.notifyDataSetChanged();
+        // Inform the user about the deletion
+        Toast.makeText(HistoryActivity.this, "Selected words deleted", Toast.LENGTH_SHORT).show();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -82,4 +122,5 @@ public class HistoryActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+
 }

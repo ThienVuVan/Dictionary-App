@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/top_navigation_bar_name_tu_cua_ban"
-            app:navigationIcon="@drawable/icons8_search"
+            app:navigationIcon="@drawable/ic_arrow_back"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
