@@ -35,8 +35,6 @@ public class WordTrans extends AppCompatActivity {
         setContentView(R.layout.word_trans);
 
         searchButton = (ImageButton) findViewById(R.id.searchButton);
-        backButton = (ImageButton) findViewById(R.id.backButton);
-        searchEditText = (EditText) findViewById(R.id.searchEditText);
         txtTranslated  = findViewById(R.id.translated_textview);
         txtDefination = findViewById(R.id.definitions_textview);
         txtSyn = findViewById(R.id.synonyms_textview);

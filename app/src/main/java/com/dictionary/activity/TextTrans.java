@@ -1,6 +1,6 @@
 package com.dictionary.activity;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+
+import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
 
@@ -23,6 +25,7 @@ public class TextTrans extends AppCompatActivity {
     private EditText textorigin;
     private TextView txtTranslate;
     Toolbar toolbar;
+    private ImageButton btnBack;
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class TextTrans extends AppCompatActivity {
         setContentView(R.layout.text_trans);
 
         toolbar = findViewById(R.id.toolbar);
+        btnBack = findViewById(R.id.backButtontext);
         setSupportActionBar(toolbar);
         // Loại bỏ tiểu đề mặc định
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -41,6 +45,7 @@ public class TextTrans extends AppCompatActivity {
                 Toast.makeText(TextTrans.this,"ádđ",Toast.LENGTH_SHORT).show();
             }
         });
+      
         textorigin = findViewById(R.id.plain_text_input);
         txtTranslate = findViewById(R.id.txtTranslate);
         btnTran = findViewById(R.id.btnAnhViet);
@@ -69,14 +74,12 @@ public class TextTrans extends AppCompatActivity {
             });
         });
 
-        // call api for text translate
-        // lấy text đưa vào đây và sử lý trong thenAccept
-//        API.getTranslate("nguyen is a dog!").thenAccept(text -> {
-//            System.out.println(text);
-//            // lấy text ở đây hiện lên màn hình,code ở trong đây, ko code ở ngoài.
-//        }).exceptionally(throwable -> {
-//            throwable.printStackTrace();
-//            return null;
-//        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TextTrans.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
