@@ -12,18 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/top_navigation_bar_name_tu_cua_ban"
-            app:navigationIcon="@drawable/ic_arrow_back"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/top_navigation_bar_name_tu_cua_ban"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
     </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="20dp">
 
     <LinearLayout
 

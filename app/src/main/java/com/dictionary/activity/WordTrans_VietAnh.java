@@ -1,23 +1,20 @@
 package com.dictionary.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 import com.dictionary.R;
 import com.dictionary.api.API;
 import com.dictionary.model.Word;
 import com.google.android.material.tabs.TabLayout;
 
-public class WordTrans extends AppCompatActivity {
+public class WordTrans_VietAnh extends AppCompatActivity {
     private TextView txtTranslated;
     private TextView txtWord;
     private TextView txtDefination;
@@ -32,7 +29,7 @@ public class WordTrans extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_trans);
+        setContentView(R.layout.word_trans_viet_anh);
 
         backButton = (ImageButton) findViewById(R.id.backButtontext);
         searchEditText = (EditText) findViewById(R.id.txtSearch);

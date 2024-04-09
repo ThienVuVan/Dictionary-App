@@ -35,35 +35,8 @@ public class MainActivity extends AppCompatActivity {
         btnHistory = findViewById(R.id.btnHistory);
         btnSetting = findViewById(R.id.btnSetting);
         txtSearch = findViewById(R.id.txtSearch);
-
         toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
-//        // Loại bỏ tiểu đề mặc định
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this,"ádđ",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        // call api for word
-        API.getWord("hello").thenAccept(word -> {
-            System.out.println(word);
-        }).exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
-        });
-
-        // call api for text translate
-        API.getTranslate("nguyen is a dog!").thenAccept(text -> {
-            System.out.println(text);
-        }).exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
-        });
 
         //Intent điều hướng
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putString("word",txtSearch.getText().toString());
                 i.putExtras(b);
-                MainActivity.this.startActivity(i);
+                startActivity(i);
             }
         });
         btnSetting.setOnClickListener(new View.OnClickListener() {
