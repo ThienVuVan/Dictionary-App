@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.dictionary.R;
+import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 
 import java.io.IOException;
@@ -56,6 +57,37 @@ public class YourWordAdapter extends BaseAdapter {
         txtWord.setText(data.get(position).getOriginal_text());
         TextView txtDefine =v.findViewById(R.id.txtDefine);
         txtDefine.setText(data.get(position).getDefinition());
+        ImageButton audioBtn = v.findViewById(R.id.btnAudio);
+        ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
+        if (data.get(position).getMark() == 1) {
+            addToYourWord.setBackgroundResource(R.drawable.star_fill);
+        } else {
+            addToYourWord.setBackgroundResource(R.drawable.ic_favor);
+        }
+
+        audioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudio(data.get(position).getAudio());
+                Toast.makeText(activity,"test",Toast.LENGTH_SHORT).show();
+            }
+        });
+        addToYourWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDB myDB = MyDB.getInstance(activity);
+                if(data.get(position).getMark() == 1){
+                    myDB.updateMark(data.get(position).getId(),0);
+                    data.get(position).setMark(0);
+                    updateData(data);
+
+                }else{
+                    data.get(position).setMark(1);
+                    updateData(data);
+
+                }
+            }
+        });
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +96,32 @@ public class YourWordAdapter extends BaseAdapter {
             }
         });
         return v;
+    }
+    public void playAudio(String audioUrl){
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build());
+
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(activity, "Failed to play audio", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void updateData(ArrayList<Word> newData){
+        this.data = newData;
+        notifyDataSetChanged();
     }
 
 

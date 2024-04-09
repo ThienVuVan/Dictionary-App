@@ -7,35 +7,31 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dictionary.R;
-import com.dictionary.activity.HistoryAdapter;
 import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
     private Button btnDel;
-    private MaterialToolbar btnBack;
+
     private  Button btnSelectAll;
     private EditText searchtext;
     private ListView listViewHistory;
     private ArrayList<Word>  listWordHitory;
     private HistoryAdapter adapter;
     private MyDB db;
+    private MaterialToolbar btnBack;
     MediaPlayer mediaPlayer;
 
     @Override
@@ -47,8 +43,6 @@ public class HistoryActivity extends AppCompatActivity {
         btnSelectAll = findViewById(R.id.btnSelectAll);
         listViewHistory = findViewById(R.id.listHistory);
         searchtext = findViewById(R.id.searchText);
-        db = new MyDB(HistoryActivity.this);
-        listWordHitory = db.getAllWords();
         btnBack = findViewById(R.id.backButton);
         btnBack.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +50,14 @@ public class HistoryActivity extends AppCompatActivity {
                 finish();
             }
         });
+        db = MyDB.getInstance(this);
+        listWordHitory = db.getAllWords();
         searchtext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s.toString());
@@ -132,4 +129,10 @@ public class HistoryActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+
+
+
+
+    //delete word on database
+
 }
