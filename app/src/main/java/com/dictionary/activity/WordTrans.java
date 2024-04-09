@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.dictionary.R;
+import com.dictionary.api.API;
 import com.google.android.material.tabs.TabLayout;
 
 public class WordTrans extends AppCompatActivity {
@@ -57,6 +58,18 @@ public class WordTrans extends AppCompatActivity {
             }
         });
 
+
+//      xử lý sự kiện ấn search ở đây, gọi api dưới đây
+        // lấy text
+        API.getWordEnglish("hello")
+                .thenAccept(word -> {
+                    System.out.println(word);
+                    // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                })
+                .exceptionally(throwable -> {
+                    throwable.printStackTrace();
+                    return null;
+                });
 
     }
 }

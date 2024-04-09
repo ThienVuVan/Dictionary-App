@@ -4,6 +4,8 @@ import com.dictionary.model.Word;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -12,6 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class API {
 
     public static CompletableFuture<Word> getWordEnglish(String text) {
+        System.out.println("API called with word: " + text); // Thêm log ở đây
         CompletableFuture<Word> future = new CompletableFuture<>();
 
         // call api dictionary
@@ -20,38 +23,52 @@ public class API {
             @Override
             public void onResponse(Call<List<WordResult>> call, Response<List<WordResult>> response) {
                 Word word = new Word();
-                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    WordResult wordResult = response.body().get(0);
-                    word.setOriginal_text(text);
-                    word.setMark(0);
-                    if (!wordResult.getMeanings().get(0).getPartOfSpeech().isEmpty()) {
-                        word.setType(wordResult.getMeanings().get(0).getPartOfSpeech());
-                    }
-                    if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                        word.setDefinition(wordResult.getMeanings().get(0).getDefinitions().get(0).getDefinition());
-                    }
-                    if (!wordResult.getMeanings().get(0).getSynonyms().isEmpty()) {
-                        word.setSynonyms(wordResult.getMeanings().get(0).getSynonyms().get(0));
-                    }
-                    if (!wordResult.getMeanings().get(0).getAntonyms().isEmpty()) {
-                        word.setAntonyms(wordResult.getMeanings().get(0).getAntonyms().get(0));
-                    }
-                    if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                        word.setExample(wordResult.getMeanings().get(0).getDefinitions().get(0).getExample());
-                    }
-                    if (wordResult.getPhonetics().get(0).getAudio() != null) {
-                        word.setAudio(wordResult.getPhonetics().get(0).getAudio());
-                    }
+                if (response.isSuccessful()) {
+                    if (response.body() != null && !response.body().isEmpty()) {
+                        WordResult wordResult = response.body().get(0);
+                        word.setOriginal_text(text);
+                        word.setMark(0);
+                        if (!wordResult.getMeanings().get(0).getPartOfSpeech().isEmpty()) {
+                            word.setType(wordResult.getMeanings().get(0).getPartOfSpeech());
+                        }
+                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
+                            word.setDefinition(wordResult.getMeanings().get(0).getDefinitions().get(0).getDefinition());
+                        }
+                        if (!wordResult.getMeanings().get(0).getSynonyms().isEmpty()) {
+                            word.setSynonyms(wordResult.getMeanings().get(0).getSynonyms().get(0));
+                        }
+                        if (!wordResult.getMeanings().get(0).getAntonyms().isEmpty()) {
+                            word.setAntonyms(wordResult.getMeanings().get(0).getAntonyms().get(0));
+                        }
+                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
+                            word.setExample(wordResult.getMeanings().get(0).getDefinitions().get(0).getExample());
+                        }
+                        if (wordResult.getPhonetics().get(0).getAudio() != null) {
+                            word.setAudio(wordResult.getPhonetics().get(0).getAudio());
+                        }
 
-                    // call api yandex
-                    getTranslate(text, 1).thenAccept(translation -> {
-                        word.setTranslated_text(translation);
-                        future.complete(word);
-                    }).exceptionally(throwable -> {
-                        future.completeExceptionally(throwable);
-                        return null;
-                    });
+                        // call api yandex
+                        getTranslate(text, 1).thenAccept(translation -> {
+                            word.setTranslated_text(translation);
+                            future.complete(word);
+                        }).exceptionally(throwable -> {
+                            future.completeExceptionally(throwable);
+                            return null;
+                        });
+                    } else {
+                        try {
+                            System.out.println("Response body is null or empty: " + response.errorBody().string());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
+                    }
                 } else {
+                    try {
+                        System.out.println("Response is not successful: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
                 }
             }
@@ -67,73 +84,37 @@ public class API {
 
     public static CompletableFuture<String> getTranslate(String text, Integer mode) {
         CompletableFuture<String> future = new CompletableFuture<>();
+        String lang;
 
-        if(mode == 1){
-            Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
-                    .getTranslation(
-                            "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
-                            text,
-                            "en-vi");
-            callYandex.enqueue(new Callback<TranslationResponse>() {
-                @Override
-                public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        TranslationResponse translationResponse = response.body();
-                        String translation = Arrays.toString(translationResponse.getText());
-                        future.complete(translation);
-                    } else {
-                        future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
-                    future.completeExceptionally(throwable);
-                }
-            });
-        }else {
-            Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
-                    .getTranslation(
-                            "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
-                            text,
-                            "vi-en");
-            callYandex.enqueue(new Callback<TranslationResponse>() {
-                @Override
-                public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        TranslationResponse translationResponse = response.body();
-                        String translation = Arrays.toString(translationResponse.getText());
-                        future.complete(translation);
-                    } else {
-                        future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
-                    future.completeExceptionally(throwable);
-                }
-            });
+        if (mode == 1) {
+            lang = "en-vi";
+        } else {
+            lang = "vi-en";
         }
 
-        return future;
-    }
+        Call<TranslationResponse> callYandex = RetrofitInstance.getYandexApi()
+                .getTranslation(
+                        "trnsl.1.1.20240308T155126Z.c8bbd140684c9d27.19f4d172357b6331fea1a277381359eef1cd2170",
+                        text,
+                        lang);
+        callYandex.enqueue(new Callback<TranslationResponse>() {
+            @Override
+            public void onResponse(Call<TranslationResponse> call, Response<TranslationResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    TranslationResponse translationResponse = response.body();
+                    String translation = Arrays.toString(translationResponse.getText());
+                    future.complete(translation);
+                } else {
+                    future.completeExceptionally(new RuntimeException("Failed to get translation from yandex"));
+                }
+            }
 
-    public static CompletableFuture<Word> getWordVietNam(String text) {
-        CompletableFuture<Word> future = new CompletableFuture<>();
-
-        // call api yandex to translate from Vietnamese to English
-        getTranslate(text, 2).thenCompose(englishText -> {
-            // call api dictionary to get the meaning of the translated English word
-            return getWordEnglish(englishText);
-        }).thenAccept(word -> {
-            future.complete(word);
-        }).exceptionally(throwable -> {
-            future.completeExceptionally(throwable);
-            return null;
+            @Override
+            public void onFailure(Call<TranslationResponse> call, Throwable throwable) {
+                future.completeExceptionally(throwable);
+            }
         });
+
         return future;
     }
-
-
 }

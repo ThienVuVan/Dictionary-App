@@ -142,12 +142,3 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
 }
-
-/*
-get mark word -> list<word>
-update mark word
-delete mark word
-delete word
-get all word
-add word
- */
