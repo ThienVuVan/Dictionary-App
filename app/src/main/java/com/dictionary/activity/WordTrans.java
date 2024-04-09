@@ -25,8 +25,8 @@ public class WordTrans extends AppCompatActivity {
         setContentView(R.layout.word_trans);
 
         searchButton = (ImageButton) findViewById(R.id.searchButton);
-        backButton = (ImageButton) findViewById(R.id.backButton);
-        searchEditText = (EditText) findViewById(R.id.searchEditText);
+        backButton = (ImageButton) findViewById(R.id.backButtontext);
+        searchEditText = (EditText) findViewById(R.id.txtSearch);
 
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);

@@ -19,7 +19,7 @@
 
         <!-- Thêm nút back -->
         <ImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/backButtontext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -73,7 +73,7 @@
 
 
         <EditText
-            android:id="@+id/searchEditText"
+            android:id="@+id/txtSearch"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginStart="30dp"

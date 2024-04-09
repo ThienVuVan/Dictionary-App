@@ -42,6 +42,7 @@ public class MyDB extends SQLiteOpenHelper {
                 + IsMark + " INTEGER, "
                 + Example + " TEXT, "
                 + Audio + " TEXT)";
+        db.execSQL(createWordTableSQL);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
