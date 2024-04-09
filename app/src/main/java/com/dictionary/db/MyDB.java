@@ -92,13 +92,53 @@ public class MyDB extends SQLiteOpenHelper {
         }
         return list;
     }
-}
 
-/*
-get mark word -> list<word>
-update mark word
-delete mark word
-delete word
-get all word
-add word
- */
+    public ArrayList<Word> getAllMarkedWords() {
+        ArrayList<Word> list = new ArrayList<>();
+        String sql = "SELECT * FROM " + WordTable + " WHERE " + IsMark + " = 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Word word = new Word(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7),
+                        cursor.getString(8),
+                        cursor.getString(9)
+                );
+                list.add(word);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
+    public void updateMark(int wordId, int markStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(IsMark, markStatus);
+        db.update(WordTable, values, WordId + " = ?", new String[]{String.valueOf(wordId)});
+        db.close();
+    }
+
+    public void deleteMark(int wordId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(IsMark, 0); // Assuming 0 means unmarked
+        db.update(WordTable, values, WordId + " = ?", new String[]{String.valueOf(wordId)});
+        db.close();
+    }
+
+    public void deleteWord(int wordId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(WordTable, WordId + " = ?", new String[]{String.valueOf(wordId)});
+        db.close();
+    }
+
+}

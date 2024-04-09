@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
@@ -28,15 +29,15 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/white" />
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingLeft="16dp"
-            android:text="hello"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/toolbar_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:paddingLeft="16dp"-->
+<!--            android:text="hello"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20sp" />-->
 
         <ImageButton
             android:id="@+id/favorButton"
@@ -90,35 +91,123 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/tablayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--                <com.google.android.material.tabs.TabItem-->
-<!--                    android:id="@+id/tab_anhviet"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Anh-Việt" />-->
-
-<!--                <com.google.android.material.tabs.TabItem-->
-<!--                    android:id="@+id/tab_anhanh"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Anh-Anh" />-->
-
-<!--    </com.google.android.material.tabs.TabLayout>-->
-
-    <androidx.viewpager.widget.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/viewpager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tablayout"
+
+        <RelativeLayout
+            android:layout_width="145dp"
+            android:layout_height="64dp">
+
+            <TextView
+                android:id="@+id/word_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:text="word"
+                android:textColor="#1565C0"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/volumeButton"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="volume"
+                android:padding="10dp"
+                android:src="@drawable/ic_volume" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/part_of_speech_textview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    </androidx.viewpager.widget.ViewPager>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TranslatedText : "
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/translated_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 defination \n\n 2 another" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Definitions : "
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/definitions_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 defination \n\n 2 another \n\n 3 third" />
+
+        <TextView
+            android:id="@+id/synonyms_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Synonyms : "
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/synonyms_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="asad, asaad, asdia ,asdajod" />
+
+        <TextView
+            android:id="@+id/antonyms_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Antonyms : "
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/antonyms_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="asad, asaad, asdia ,asdajod" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Example : "
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/example_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 defination \n\n 2 another" />
+
+    </LinearLayout>
 
 </LinearLayout>

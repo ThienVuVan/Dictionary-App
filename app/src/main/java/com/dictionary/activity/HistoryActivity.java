@@ -2,6 +2,8 @@ package com.dictionary.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.dictionary.activity.HistoryAdapter;
 import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -28,6 +31,7 @@ public class HistoryActivity extends AppCompatActivity {
     private ArrayList<Word>  listWordHitory;
     private HistoryAdapter adapter;
     private MyDB db;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +50,12 @@ public class HistoryActivity extends AppCompatActivity {
                 selectAll();
             }
         });
-        listViewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("message","item click");
-            }
-        });
-
 
 
         adapter = new HistoryAdapter(this,listWordHitory);
         listViewHistory.setAdapter(adapter);
     }
+
     public void selectAll(){
         if(btnSelectAll.getText().toString().equals("Đánh dấu tất cả")){
             for(int i=0;i<listViewHistory.getChildCount(); i++){
@@ -75,5 +73,13 @@ public class HistoryActivity extends AppCompatActivity {
             }
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

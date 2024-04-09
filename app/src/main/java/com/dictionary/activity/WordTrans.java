@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.dictionary.R;
+import com.dictionary.api.API;
 import com.google.android.material.tabs.TabLayout;
 
 public class WordTrans extends AppCompatActivity {
@@ -28,12 +29,6 @@ public class WordTrans extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.backButtontext);
         searchEditText = (EditText) findViewById(R.id.txtSearch);
 
-        tabLayout = findViewById(R.id.tablayout);
-        viewPager = findViewById(R.id.viewpager);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 //        Xử lí xuất hiện search bar
         searchEditText.setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +37,7 @@ public class WordTrans extends AppCompatActivity {
                 if (searchEditText.getVisibility() == View.GONE) {
                     // Hiển thị EditText và ẩn các nút khác
                     searchEditText.setVisibility(View.VISIBLE);
-                    findViewById(R.id.toolbar_title).setVisibility(View.GONE);
+//                    findViewById(R.id.toolbar_title).setVisibility(View.GONE);
                     findViewById(R.id.favorButton).setVisibility(View.GONE);
                     findViewById(R.id.noteButton).setVisibility(View.GONE);
                     searchButton.setVisibility(View.GONE);
@@ -55,7 +50,7 @@ public class WordTrans extends AppCompatActivity {
             public void onClick(View v) {
                 if (searchButton.getVisibility() == View.GONE) {
                     searchEditText.setVisibility(View.GONE);
-                    findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
+//                    findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
                     findViewById(R.id.favorButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.noteButton).setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.VISIBLE);
@@ -63,6 +58,18 @@ public class WordTrans extends AppCompatActivity {
             }
         });
 
+
+//      xử lý sự kiện ấn search ở đây, gọi api dưới đây
+        // lấy text
+        API.getWordEnglish("hello")
+                .thenAccept(word -> {
+                    System.out.println(word);
+                    // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                })
+                .exceptionally(throwable -> {
+                    throwable.printStackTrace();
+                    return null;
+                });
 
     }
 }

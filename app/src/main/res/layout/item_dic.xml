@@ -37,6 +37,7 @@
                 </LinearLayout>
 
                 <ImageButton
+                    android:id="@+id/btnAudio"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
@@ -44,6 +45,7 @@
                     android:background="@drawable/ic_volume" />
 
                 <ImageButton
+                    android:id="@+id/btnAddToYourWord"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"

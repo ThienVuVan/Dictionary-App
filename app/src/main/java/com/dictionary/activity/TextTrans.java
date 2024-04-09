@@ -15,10 +15,13 @@ import androidx.core.content.ContextCompat;
 
 import com.dictionary.MainActivity;
 import com.dictionary.R;
+import com.dictionary.api.API;
 
 public class TextTrans extends AppCompatActivity {
+    ImageButton search_button;
     Toolbar toolbar;
     private ImageButton btnBack;
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
