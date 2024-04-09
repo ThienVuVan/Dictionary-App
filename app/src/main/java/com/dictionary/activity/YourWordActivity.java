@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dictionary.R;
 import com.dictionary.activity.HistoryAdapter;
 import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
@@ -21,6 +22,7 @@ public class YourWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_yourword);
 
     }
 

@@ -1,6 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#79CFF6"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <ImageButton
+            android:id="@+id/backButtontext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="back"
+            android:src="@drawable/ic_search"
+            app:tint="@color/white" />
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Search..."
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btnVietAnh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Tra cứu tiếng việt - tiếng anh"
+        android:textColor="#000000"
+        app:icon="@android:drawable/ic_menu_send"
+        app:iconTint="#FF9800" />
+
+    <Button
+        android:id="@+id/btnTextTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Dịch văn bản"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/btnYourword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Từ của bạn"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/btnHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Từ đã tra "
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/btnSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Cài đặt"
+        android:textColor="#000000" />
+
+</LinearLayout>
