@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 import com.google.android.material.tabs.TabLayout;
 
@@ -98,6 +100,15 @@ public class WordTrans extends AppCompatActivity {
                                 // note: cách gọi ra db như sau
                                 // MyDB myDB = MyDB.getInstance(this);
                                 // myDB.getAllWords();
+                                MyDB db = MyDB.getInstance(getApplicationContext());
+                                if(!db.isWordExists(newWord.getOriginal_text())){
+                                    // lưu vào db
+                                    db.addWord(newWord);
+                                    Log.d("MyDB", "done");
+                                }else {
+                                    Log.d("MyDB", "Từ đã tồn tại trong cơ sở dữ liệu: " + newWord.getOriginal_text());
+                                }
+
                             })
                             .exceptionally(throwable -> {
                                 throwable.printStackTrace();
