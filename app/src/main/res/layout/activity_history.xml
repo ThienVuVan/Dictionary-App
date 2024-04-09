@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/top_navigation_bar_name_tu_cua_ban"

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Dictionary"
         tools:targetApi="31">
         <activity
+            android:name=".activity.WordTrans_VietAnh"
+            android:exported="false" />
+        <activity
             android:name=".activity.YourWordActivity"
             android:exported="false" />
         <activity

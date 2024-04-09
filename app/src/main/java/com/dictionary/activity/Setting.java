@@ -28,8 +28,9 @@ public class Setting extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Setting.this, MainActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(Setting.this, MainActivity.class);
+//                startActivity(i);
+                finish();
             }
         });
         swtTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

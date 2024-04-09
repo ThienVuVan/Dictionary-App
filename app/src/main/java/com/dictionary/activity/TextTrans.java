@@ -78,8 +78,9 @@ public class TextTrans extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(TextTrans.this, MainActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(TextTrans.this, MainActivity.class);
+//                startActivity(i);
+                finish();
             }
         });
     }
