@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
 import com.dictionary.model.Word;
@@ -64,7 +66,9 @@ public class WordTrans extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(searchEditText.getVisibility() == View.GONE && searchButton.getVisibility() == View.VISIBLE){
-                    // dũng sử lý back về home ở đây
+//                    Intent i = new Intent(WordTrans.this, MainActivity.class);
+//                    startActivity(i);
+                    finish();
                 }
                 if (searchButton.getVisibility() == View.GONE) {
                     searchEditText.setVisibility(View.GONE);

@@ -1,5 +1,6 @@
 package com.dictionary.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
 import com.dictionary.model.Word;
@@ -61,7 +64,9 @@ public class WordTrans_VietAnh extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(searchEditText.getVisibility() == View.GONE && searchButton.getVisibility() == View.VISIBLE){
-                    // dũng sử lý back về home ở đây
+//                    Intent i = new Intent(WordTrans_VietAnh.this, MainActivity.class);
+//                    startActivity(i);
+                    finish();
                 }
                 if (searchButton.getVisibility() == View.GONE) {
                     searchEditText.setVisibility(View.GONE);

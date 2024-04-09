@@ -15,6 +15,7 @@ import com.dictionary.activity.HistoryActivity;
 import com.dictionary.activity.Setting;
 import com.dictionary.activity.TextTrans;
 import com.dictionary.activity.WordTrans;
+import com.dictionary.activity.WordTrans_VietAnh;
 import com.dictionary.activity.YourWordActivity;
 import com.dictionary.api.API;
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         btnVietAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, WordTrans.class);
+                Intent i = new Intent(MainActivity.this, WordTrans_VietAnh.class);
                 startActivity(i);
             }
         });

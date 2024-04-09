@@ -21,12 +21,15 @@ import com.dictionary.R;
 import com.dictionary.activity.HistoryAdapter;
 import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
     private Button btnDel;
+    private MaterialToolbar btnBack;
     private  Button btnSelectAll;
     private EditText searchtext;
     private ListView listViewHistory;
@@ -39,18 +42,25 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
         btnDel = findViewById(R.id.btnDel);
         btnSelectAll = findViewById(R.id.btnSelectAll);
         listViewHistory = findViewById(R.id.listHistory);
         searchtext = findViewById(R.id.searchText);
         db = new MyDB(HistoryActivity.this);
         listWordHitory = db.getAllWords();
+        btnBack = findViewById(R.id.backButton);
+        btnBack.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         searchtext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s.toString());
