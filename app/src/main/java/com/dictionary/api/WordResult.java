@@ -1,7 +1,7 @@
 package com.dictionary.api;
 import java.util.List;
 
-public class WordDetail {
+public class WordResult {
     private String word;
     private List<Meaning> meanings;
     private List<Phonetic> phonetics;

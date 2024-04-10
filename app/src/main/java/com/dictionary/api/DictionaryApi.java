@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DictionaryApi {
     @GET("en/{word}")
-    retrofit2.Call<List<WordDetail>> getMeaning(@Path("word") String word);
+    retrofit2.Call<List<WordResult>> getMeaning(@Path("word") String word);
 
     @POST("translate")
     @FormUrlEncoded

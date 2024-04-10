@@ -1,17 +1,19 @@
 package com.dictionary.model;
 
-import com.dictionary.api.WordDetail;
+import com.dictionary.api.WordResult;
+
+import java.util.List;
 
 public class ApiResult {
     private Word word;
-    private WordDetail word_detail;
+    private List<WordDetail> wordDetailList;
 
     public ApiResult() {
     }
 
-    public ApiResult(Word word, WordDetail word_detail) {
+    public ApiResult(Word word, List<WordDetail> wordDetailList) {
         this.word = word;
-        this.word_detail = word_detail;
+        this.wordDetailList = wordDetailList;
     }
 
     public Word getWord() {
@@ -22,12 +24,12 @@ public class ApiResult {
         this.word = word;
     }
 
-    public WordDetail getWord_detail() {
-        return word_detail;
+    public List<WordDetail> getWordDetailList() {
+        return wordDetailList;
     }
 
-    public void setWord_detail(WordDetail word_detail) {
-        this.word_detail = word_detail;
+    public void setWordDetailList(List<WordDetail> wordDetailList) {
+        this.wordDetailList = wordDetailList;
     }
 
     @Override

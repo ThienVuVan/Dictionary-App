@@ -2,26 +2,24 @@ package com.dictionary.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
 import com.dictionary.api.Meaning;
-import com.dictionary.api.WordDetail;
-import com.dictionary.db.MyDB;
+import com.dictionary.api.WordResult;
 import com.dictionary.model.Word;
+import com.dictionary.model.WordDetail;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 public class WordTrans extends AppCompatActivity {
     private TextView txtTranslated;
@@ -90,28 +88,24 @@ public class WordTrans extends AppCompatActivity {
                     API.getWordEnglish(searchEditText.getText().toString())
                             .thenAccept(apiResult -> {
                                 Word newWord = apiResult.getWord();
-                                WordDetail wordDetail = apiResult.getWord_detail();
+                                List<WordDetail> wordDetailList = apiResult.getWordDetailList();
 
                                 // in ra màn hình trên đầu
                                 String original_text = newWord.getOriginal_text();
                                 String translate_text = newWord.getTranslated_text();
                                 String phonetic = newWord.getPhonetic();
                                 String audio = newWord.getAudio();
+                                System.out.println(newWord);
 
                                 // sau đây là lặp qua các loại từ và in ra màn hình
                                 // lặp qua bao nhiêu in bấy nhiêu.
-                                for(Meaning meaning : wordDetail.getMeanings()){
-                                    String type = meaning.getPartOfSpeech();
-                                    String definition = meaning.getDefinitions().get(0).getDefinition();
-                                    String example = meaning.getDefinitions().get(0).getExample();
-                                    String synonyms = "";
-                                    for(String synonym : meaning.getSynonyms()){
-                                        synonyms += synonym + ", ";
-                                    }
-                                    String antonyms = "";
-                                    for(String antonym : meaning.getAntonyms()){
-                                        antonyms += antonym + ", ";
-                                    }
+                                for(WordDetail wordDetail : wordDetailList){
+                                    String type = wordDetail.getType();
+                                    String definition = wordDetail.getDefinition();
+                                    String example = wordDetail.getExample();
+                                    String synonyms = wordDetail.getSynonyms();
+                                    String antonyms = wordDetail.getAntonyms();
+                                    System.out.println(wordDetail);
                                 }
 
 
