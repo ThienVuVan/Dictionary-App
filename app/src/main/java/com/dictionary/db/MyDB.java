@@ -182,4 +182,10 @@ public class MyDB extends SQLiteOpenHelper {
         return word;
     }
 
+    public void deleteAllWords() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(WordTable, null, null); // Xóa tất cả dữ liệu trong bảng
+        db.close();
+    }
+
 }
