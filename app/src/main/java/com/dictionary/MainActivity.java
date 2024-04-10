@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
 
+        API.getWordEnglish("hel").thenAccept(word -> {
+            System.out.println(word);
+            // take this word to view to screen
+        }).exceptionally(throwable -> {
+            throwable.printStackTrace();
+            return null;
+        });
+
         //Intent điều hướng
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

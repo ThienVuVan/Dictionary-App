@@ -56,20 +56,10 @@ public class API {
                             return null;
                         });
                     } else {
-                        try {
-                            System.out.println("Response body is null or empty: " + response.errorBody().string());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
+                        future.complete(null); // Trả về null khi không có dữ liệu từ API
                     }
                 } else {
-                    try {
-                        System.out.println("Response is not successful: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
+                    future.complete(null); // Trả về null khi API không thành công
                 }
             }
 
@@ -81,6 +71,7 @@ public class API {
 
         return future;
     }
+
 
     public static CompletableFuture<String> getTranslate(String text, Integer mode) {
         CompletableFuture<String> future = new CompletableFuture<>();

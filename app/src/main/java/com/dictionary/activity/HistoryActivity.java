@@ -47,7 +47,7 @@ public class HistoryActivity extends AppCompatActivity {
         btnSelectAll = findViewById(R.id.btnSelectAll);
         listViewHistory = findViewById(R.id.listHistory);
         searchtext = findViewById(R.id.searchText);
-        db = new MyDB(HistoryActivity.this);
+        db = MyDB.getInstance(this);
         listWordHitory = db.getAllWords();
         btnBack = findViewById(R.id.backButton);
         btnBack.setNavigationOnClickListener(new View.OnClickListener() {
