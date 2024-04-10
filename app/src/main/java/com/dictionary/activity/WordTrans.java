@@ -1,7 +1,10 @@
 package com.dictionary.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dictionary.R;
@@ -31,8 +35,10 @@ public class WordTrans extends AppCompatActivity {
     Toolbar toolbar;
     ImageButton searchButton, backButton;
     EditText searchEditText;
-    private TabLayout tabLayout;
-    ViewPager  viewPager;
+
+    RecyclerView recyclerView;
+    RecyclerViewItem adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +49,16 @@ public class WordTrans extends AppCompatActivity {
 
         searchButton = (ImageButton) findViewById(R.id.searchButton);
         txtTranslated  = findViewById(R.id.translated_textview);
-        txtDefination = findViewById(R.id.definitions_textview);
-        txtSyn = findViewById(R.id.synonyms_textview);
-        txtAnt = findViewById(R.id.antonyms_textview);
-        txtExample = findViewById(R.id.example_textview);
+//        txtDefination = findViewById(R.id.definitions_textview);
+//        txtSyn = findViewById(R.id.synonyms_textview);
+//        txtAnt = findViewById(R.id.antonyms_textview);
+//        txtExample = findViewById(R.id.example_textview);
         txtWord = findViewById(R.id.word_textview);
+
+        recyclerView = findViewById(R.id.recycler);
+        adapter = new RecyclerViewItem(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
 //      Xử lí xuất hiện search bar
         searchEditText.setVisibility(View.GONE);
@@ -96,6 +107,8 @@ public class WordTrans extends AppCompatActivity {
                                 String phonetic = newWord.getPhonetic();
                                 String audio = newWord.getAudio();
                                 System.out.println(newWord);
+                                adapter.setData(wordDetailList);
+                                recyclerView.setAdapter(adapter);
 
                                 // sau đây là lặp qua các loại từ và in ra màn hình
                                 // lặp qua bao nhiêu in bấy nhiêu.
@@ -106,12 +119,11 @@ public class WordTrans extends AppCompatActivity {
                                     String synonyms = wordDetail.getSynonyms();
                                     String antonyms = wordDetail.getAntonyms();
                                     System.out.println(wordDetail);
+
                                 }
-
-
 //                                Word newWord = word;
-//                                txtWord.setText(newWord.getOriginal_text());
-//                                txtTranslated.setText(newWord.getTranslated_text());
+                                txtWord.setText(newWord.getOriginal_text());
+                                txtTranslated.setText(newWord.getTranslated_text());
 ////                                txtDefination.setText(newWord.getDefinition());
 ////                                txtSyn.setText(newWord.getSynonyms());
 ////                                txtAnt.setText(newWord.getAntonyms());
