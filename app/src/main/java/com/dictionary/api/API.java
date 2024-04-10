@@ -1,56 +1,50 @@
 package com.dictionary.api;
 
+import com.dictionary.model.ApiResult;
 import com.dictionary.model.Word;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class API {
 
-    public static CompletableFuture<Word> getWordEnglish(String text) {
-        CompletableFuture<Word> future = new CompletableFuture<>();
+    public static CompletableFuture<ApiResult> getWordEnglish(String text) {
+        CompletableFuture<ApiResult> future = new CompletableFuture<>();
 
         // call api dictionary
-        Call<List<WordResult>> callDictionary = RetrofitInstance.getDictionaryApi().getMeaning(text);
-        callDictionary.enqueue(new Callback<List<WordResult>>() {
+        Call<List<WordDetail>> callDictionary = RetrofitInstance.getDictionaryApi().getMeaning(text);
+        callDictionary.enqueue(new Callback<List<WordDetail>>() {
             @Override
-            public void onResponse(Call<List<WordResult>> call, Response<List<WordResult>> response) {
+            public void onResponse(Call<List<WordDetail>> call, Response<List<WordDetail>> response) {
                 Word word = new Word();
-                System.out.println("text: " + text);
+                ApiResult apiResult = new ApiResult();
                 if (response.isSuccessful()) {
                     if (response.body() != null && !response.body().isEmpty()) {
-                        WordResult wordResult = response.body().get(0);
+                        WordDetail wordResult = response.body().get(0);
                         word.setOriginal_text(text);
-                        word.setMark(0);
-                        if (!wordResult.getMeanings().get(0).getPartOfSpeech().isEmpty()) {
-                            word.setType(wordResult.getMeanings().get(0).getPartOfSpeech());
+                        word.setIsMark(0);
+                        for (Phonetic phoneticItem : wordResult.getPhonetics()) {
+                            if (phoneticItem.getAudio() != null) {
+                                word.setAudio(phoneticItem.getAudio());
+                                break;
+                            }
                         }
-                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                            word.setDefinition(wordResult.getMeanings().get(0).getDefinitions().get(0).getDefinition());
+                        for (Phonetic phoneticItem : wordResult.getPhonetics()) {
+                            if (phoneticItem.getText() != null) {
+                                word.setPhonetic(phoneticItem.getText());
+                                break;
+                            }
                         }
-                        if (!wordResult.getMeanings().get(0).getSynonyms().isEmpty()) {
-                            word.setSynonyms(wordResult.getMeanings().get(0).getSynonyms().get(0));
-                        }
-                        if (!wordResult.getMeanings().get(0).getAntonyms().isEmpty()) {
-                            word.setAntonyms(wordResult.getMeanings().get(0).getAntonyms().get(0));
-                        }
-                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                            word.setExample(wordResult.getMeanings().get(0).getDefinitions().get(0).getExample());
-                        }
-                        if (wordResult.getPhonetics().get(0).getAudio() != null) {
-                            word.setAudio(wordResult.getPhonetics().get(0).getAudio());
-                        }
-
                         // call api yandex
                         getTranslate(text, 1).thenAccept(translation -> {
                             word.setTranslated_text(translation);
-                            future.complete(word);
+                            apiResult.setWord(word);
+                            apiResult.setWord_detail(wordResult);
+                            future.complete(apiResult);
                         }).exceptionally(throwable -> {
                             future.completeExceptionally(throwable);
                             return null;
@@ -64,7 +58,7 @@ public class API {
             }
 
             @Override
-            public void onFailure(Call<List<WordResult>> call, Throwable t) {
+            public void onFailure(Call<List<WordDetail>> call, Throwable t) {
                 future.completeExceptionally(t);
             }
         });

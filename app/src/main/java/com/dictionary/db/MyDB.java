@@ -14,12 +14,8 @@ public class MyDB extends SQLiteOpenHelper {
     public static final String WordTable = "WordTable";
     public static final String WordId = "WordId";
     public static final String OriginalText = "OriginalText";
-    public static final String Type = "Type";
     public static final String TranslatedText = "TranslatedText";
-    public static final String Definition = "Definition";
-    public static final String Synonyms = "Synonyms";
-    public static final String Antonyms = "Antonyms";
-    public static final String Example = "Example";
+    public static final String Phonetic = "Phonetic";
     public static final String IsMark = "IsMark";
     public static final String Audio = "Audio";
     private static MyDB instance;
@@ -41,16 +37,13 @@ public class MyDB extends SQLiteOpenHelper {
         String createWordTableSQL = "CREATE TABLE IF NOT EXISTS " + WordTable + "("
                 + WordId + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + OriginalText + " TEXT, "
-                + Type + " TEXT, "
                 + TranslatedText + " TEXT, "
-                + Definition + " TEXT, "
-                + Synonyms + " TEXT, "
-                + Antonyms + " TEXT, "
+                + Phonetic + " TEXT, "
                 + IsMark + " INTEGER, "
-                + Example + " TEXT, "
                 + Audio + " TEXT)";
         db.execSQL(createWordTableSQL);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordTable);
@@ -62,13 +55,9 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(OriginalText, word.getOriginal_text());
-        values.put(Type, word.getType());
         values.put(TranslatedText, word.getTranslated_text());
-        values.put(Definition, word.getDefinition());
-        values.put(Synonyms, word.getSynonyms());
-        values.put(Antonyms, word.getAntonyms());
-        values.put(IsMark, word.getMark());
-        values.put(Example, word.getExample());
+        values.put(Phonetic, word.getPhonetic());
+        values.put(IsMark, word.getIsMark());
         values.put(Audio, word.getAudio());
         db.insert(WordTable, null, values);
         db.close();
@@ -87,16 +76,13 @@ public class MyDB extends SQLiteOpenHelper {
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getInt(7),
-                        cursor.getString(8),
-                        cursor.getString(9)
+                        cursor.getInt(5)
                 );
                 list.add(word);
             } while (cursor.moveToNext());
             cursor.close();
         }
+        db.close();
         return list;
     }
 
@@ -113,16 +99,13 @@ public class MyDB extends SQLiteOpenHelper {
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getInt(7),
-                        cursor.getString(8),
-                        cursor.getString(9)
+                        cursor.getInt(5)
                 );
                 list.add(word);
             } while (cursor.moveToNext());
             cursor.close();
         }
+        db.close();
         return list;
     }
 
@@ -170,11 +153,7 @@ public class MyDB extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getString(6),
-                    cursor.getInt(7),
-                    cursor.getString(8),
-                    cursor.getString(9)
+                    cursor.getInt(5)
             );
             cursor.close();
         }
@@ -187,5 +166,4 @@ public class MyDB extends SQLiteOpenHelper {
         db.delete(WordTable, null, null); // Xóa tất cả dữ liệu trong bảng
         db.close();
     }
-
 }

@@ -1,9 +1,19 @@
 package com.dictionary.api;
 
-public class Phonetics {
+public class Phonetic {
+    private String text;
     private String audio;
     private String sourceUrl;
     private License license;
+
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public String getAudio() {
         return audio;

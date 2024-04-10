@@ -55,7 +55,7 @@ public class YourWordAdapter extends BaseAdapter {
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
         TextView txtDefine =v.findViewById(R.id.txtDefine);
-        txtDefine.setText(data.get(position).getDefinition());
+//        txtDefine.setText(data.get(position).getDefinition());
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override

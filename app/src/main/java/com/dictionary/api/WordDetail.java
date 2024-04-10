@@ -1,10 +1,10 @@
 package com.dictionary.api;
 import java.util.List;
 
-public class WordResult {
+public class WordDetail {
     private String word;
     private List<Meaning> meanings;
-    private List<Phonetics> phonetics;
+    private List<Phonetic> phonetics;
 
     public String getWord() {
         return word;
@@ -22,11 +22,11 @@ public class WordResult {
         this.meanings = meanings;
     }
 
-    public List<Phonetics> getPhonetics() {
+    public List<Phonetic> getPhonetics() {
         return phonetics;
     }
 
-    public void setPhonetics(List<Phonetics> phonetics) {
+    public void setPhonetics(List<Phonetic> phonetics) {
         this.phonetics = phonetics;
     }
 }
