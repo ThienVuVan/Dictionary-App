@@ -17,13 +17,22 @@ API.getTranslate("nguyen is a dog!").thenAccept(text -> {
 });
 
 // call api for word trans (vietnamese -> english)
-API.getWordVietNam("xin chào").thenAccept(word -> {
-    System.out.println(word);
-    // take this word to view to screen
-}).exceptionally(throwable -> {
-    throwable.printStackTrace();
-    return null;
-});
+        API.getTranslate("xin chào", 2)
+                .thenCompose(text -> {
+                    String cleanedText = Function.removeOuterParentheses(text);
+                    return API.getWordEnglish(cleanedText)
+                            .thenAccept(word -> {
+                                System.out.println(word);
+                            })
+                            .exceptionally(throwable -> {
+                                throwable.printStackTrace();
+                                return null;
+                            });
+                })
+                .exceptionally(throwable -> {
+                    throwable.printStackTrace();
+                    return null;
+                });
 
 // user db
 MyDB.getInstance(this);

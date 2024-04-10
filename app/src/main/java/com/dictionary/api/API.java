@@ -14,7 +14,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class API {
 
     public static CompletableFuture<Word> getWordEnglish(String text) {
-        System.out.println("API called with word: " + text); // Thêm log ở đây
         CompletableFuture<Word> future = new CompletableFuture<>();
 
         // call api dictionary
@@ -23,6 +22,7 @@ public class API {
             @Override
             public void onResponse(Call<List<WordResult>> call, Response<List<WordResult>> response) {
                 Word word = new Word();
+                System.out.println("text: " + text);
                 if (response.isSuccessful()) {
                     if (response.body() != null && !response.body().isEmpty()) {
                         WordResult wordResult = response.body().get(0);

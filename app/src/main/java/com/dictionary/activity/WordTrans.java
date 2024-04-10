@@ -97,13 +97,7 @@ public class WordTrans extends AppCompatActivity {
                                 // gọi api xem word đã có trong table chưa, api trả về true/false
                                 // nếu có thì ko lưu
                                 // ko có thì lưu word vào db
-                                // nếu ấn mark word
-                                // gọi api lấy ra word để ấy id của word
-                                // sau đó gọi api đdánh dấu mark word
-                                // khi đánh dấu thành công thì thay đổi màu ngôi sao
-                                // note: cách gọi ra db như sau
-                                // MyDB myDB = MyDB.getInstance(this);
-                                // myDB.getAllWords();
+                                // ko có thì lưu word vào db
                                 MyDB db = MyDB.getInstance(getApplicationContext());
                                 if(!db.isWordExists(newWord.getOriginal_text())){
                                     // lưu vào db
@@ -122,5 +116,11 @@ public class WordTrans extends AppCompatActivity {
                 return false;
             }
         });
+
+        // nếu ấn mark word
+        // gọi api lấy ra word để ấy id của word
+        // sau đó gọi api đdánh dấu mark word
+        // khi đánh dấu thành công thì thay đổi màu ngôi sao
+        // note: cách gọi ra db như sau
     }
 }
