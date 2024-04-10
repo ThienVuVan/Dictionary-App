@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.api.Function;
 import com.dictionary.model.Word;
 import com.google.android.material.tabs.TabLayout;
 
@@ -81,16 +82,18 @@ public class WordTrans_VietAnh extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
-                    API.getWordEnglish(searchEditText.getText().toString())
-                            .thenAccept(word -> {
-                                Word newWord = word;
-                                txtWord.setText(newWord.getOriginal_text());
-                                txtTranslated.setText(newWord.getTranslated_text());
-                                txtDefination.setText(newWord.getDefinition());
-                                txtSyn.setText(newWord.getSynonyms());
-                                txtAnt.setText(newWord.getAntonyms());
-                                txtExample.setText(newWord.getExample());
-                                // lấy thông tin của word in lên màn hình, đồng thời lưu vào bảng word.
+                    API.getTranslate("xin chào", 2)
+                            .thenCompose(text -> {
+                                String cleanedText = Function.removeOuterParentheses(text);
+                                return API.getWordEnglish(cleanedText)
+                                        .thenAccept(word -> {
+                                            // hiệu sử lý ở đây như cái trước, đợi ngueeen put cái mới lên làm phần mark
+                                            // word sau. cái original_text với transalte_text nó ngược với cái kia.
+                                        })
+                                        .exceptionally(throwable -> {
+                                            throwable.printStackTrace();
+                                            return null;
+                                        });
                             })
                             .exceptionally(throwable -> {
                                 throwable.printStackTrace();

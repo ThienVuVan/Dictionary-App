@@ -1,21 +1,21 @@
 package com.dictionary.api;
 
+import com.dictionary.model.ApiResult;
 import com.dictionary.model.Word;
+import com.dictionary.model.WordDetail;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class API {
 
-    public static CompletableFuture<Word> getWordEnglish(String text) {
-        System.out.println("API called with word: " + text); // Thêm log ở đây
-        CompletableFuture<Word> future = new CompletableFuture<>();
+    public static CompletableFuture<ApiResult> getWordEnglish(String text) {
+        CompletableFuture<ApiResult> future = new CompletableFuture<>();
 
         // call api dictionary
         Call<List<WordResult>> callDictionary = RetrofitInstance.getDictionaryApi().getMeaning(text);
@@ -23,53 +23,58 @@ public class API {
             @Override
             public void onResponse(Call<List<WordResult>> call, Response<List<WordResult>> response) {
                 Word word = new Word();
+                List<WordDetail> wordDetailList = new ArrayList<>();
+                ApiResult apiResult = new ApiResult();
                 if (response.isSuccessful()) {
                     if (response.body() != null && !response.body().isEmpty()) {
                         WordResult wordResult = response.body().get(0);
                         word.setOriginal_text(text);
-                        word.setMark(0);
-                        if (!wordResult.getMeanings().get(0).getPartOfSpeech().isEmpty()) {
-                            word.setType(wordResult.getMeanings().get(0).getPartOfSpeech());
+                        word.setIsMark(0);
+                        for (Phonetic phoneticItem : wordResult.getPhonetics()) {
+                            if (phoneticItem.getAudio() != null) {
+                                word.setAudio(phoneticItem.getAudio());
+                                break;
+                            }
                         }
-                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                            word.setDefinition(wordResult.getMeanings().get(0).getDefinitions().get(0).getDefinition());
-                        }
-                        if (!wordResult.getMeanings().get(0).getSynonyms().isEmpty()) {
-                            word.setSynonyms(wordResult.getMeanings().get(0).getSynonyms().get(0));
-                        }
-                        if (!wordResult.getMeanings().get(0).getAntonyms().isEmpty()) {
-                            word.setAntonyms(wordResult.getMeanings().get(0).getAntonyms().get(0));
-                        }
-                        if (!wordResult.getMeanings().get(0).getDefinitions().isEmpty()) {
-                            word.setExample(wordResult.getMeanings().get(0).getDefinitions().get(0).getExample());
-                        }
-                        if (wordResult.getPhonetics().get(0).getAudio() != null) {
-                            word.setAudio(wordResult.getPhonetics().get(0).getAudio());
+                        for (Phonetic phoneticItem : wordResult.getPhonetics()) {
+                            if (phoneticItem.getText() != null) {
+                                word.setPhonetic(phoneticItem.getText());
+                                break;
+                            }
                         }
 
+                        for(Meaning meaning : wordResult.getMeanings()){
+                            WordDetail wordDetail = new WordDetail();
+                            wordDetail.setType(meaning.getPartOfSpeech());
+                            wordDetail.setDefinition(meaning.getDefinitions().get(0).getDefinition());
+                            wordDetail.setExample(meaning.getDefinitions().get(0).getExample());
+                            String synonyms = "";
+                            for(String synonym : meaning.getSynonyms()){
+                                synonyms += synonym + ", ";
+                            }
+                            wordDetail.setSynonyms(synonyms);
+                            String antonyms = "";
+                            for(String antonym : meaning.getAntonyms()){
+                                antonyms += antonym + ", ";
+                            }
+                            wordDetail.setAntonyms(antonyms);
+                            wordDetailList.add(wordDetail);
+                        }
                         // call api yandex
                         getTranslate(text, 1).thenAccept(translation -> {
                             word.setTranslated_text(translation);
-                            future.complete(word);
+                            apiResult.setWord(word);
+                            apiResult.setWordDetailList(wordDetailList);
+                            future.complete(apiResult);
                         }).exceptionally(throwable -> {
                             future.completeExceptionally(throwable);
                             return null;
                         });
                     } else {
-                        try {
-                            System.out.println("Response body is null or empty: " + response.errorBody().string());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
+                        future.complete(null); // Trả về null khi không có dữ liệu từ API
                     }
                 } else {
-                    try {
-                        System.out.println("Response is not successful: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    future.completeExceptionally(new RuntimeException("Failed to get word definition from dictionary"));
+                    future.complete(null); // Trả về null khi API không thành công
                 }
             }
 
@@ -81,6 +86,7 @@ public class API {
 
         return future;
     }
+
 
     public static CompletableFuture<String> getTranslate(String text, Integer mode) {
         CompletableFuture<String> future = new CompletableFuture<>();

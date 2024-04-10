@@ -18,6 +18,7 @@ import com.dictionary.activity.WordTrans;
 import com.dictionary.activity.WordTrans_VietAnh;
 import com.dictionary.activity.YourWordActivity;
 import com.dictionary.api.API;
+import com.dictionary.api.Function;
 import com.dictionary.db.MyDB;
 
 public class MainActivity extends AppCompatActivity {
