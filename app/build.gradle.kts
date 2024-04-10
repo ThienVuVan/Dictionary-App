@@ -42,5 +42,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-scalars
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    //recycler view
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
 
 }
