@@ -110,16 +110,18 @@ public class WordTrans_VietAnh extends AppCompatActivity {
     }
 
     private void ApiAction(String word) {
-        API.getTranslate(word, 2)
+        API.getTranslate(word.toLowerCase(), 2)
             .thenCompose(text -> {
                 String cleanedText = Function.removeOuterParentheses(text);
-                return API.getWordEnglish(cleanedText)
+                return API.getWordEnglish(cleanedText.toLowerCase())
                         .thenAccept(apiResult -> {
                             if (apiResult == null) {
                                 // thông báo từ không tồn tại
                                 return;
                             }
                             Word newWord = apiResult.getWord();
+                            newWord.setOriginal_text(newWord.getOriginal_text().toLowerCase());
+                            currentWord = newWord;
                             List<WordDetail> wordDetailList = apiResult.getWordDetailList();
                             adapter.setData(wordDetailList);
                             recyclerView.setAdapter(adapter);

@@ -119,13 +119,14 @@ public class WordTrans extends AppCompatActivity {
     }
 
     private void ApiAction(String word){
-        API.getWordEnglish(word)
+        API.getWordEnglish(word.toLowerCase())
             .thenAccept(apiResult -> {
                 if(apiResult == null){
                     // thông báo từ không tồn tại
                     return;
                 }
                 Word newWord = apiResult.getWord();
+                newWord.setOriginal_text(newWord.getOriginal_text().toLowerCase());
                 currentWord = newWord;
                 List<WordDetail> wordDetailList = apiResult.getWordDetailList();
                 adapter.setData(wordDetailList);
@@ -137,6 +138,7 @@ public class WordTrans extends AppCompatActivity {
 
                 MyDB db = MyDB.getInstance(getApplicationContext());
                 if(!db.isWordExists(newWord.getOriginal_text())) db.addWord(newWord);
+                System.out.println(newWord);
 
             }).exceptionally(throwable -> {
                 throwable.printStackTrace();
