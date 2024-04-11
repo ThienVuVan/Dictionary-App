@@ -8,22 +8,19 @@ public class Word {
     private String audio;
     private Integer isMark;
 
-    // Constructors
-
-
     public Word() {
     }
 
-    public Word(int id, String original_text, String translated_text, String phonetic, String audio, Integer isMark) {
+    public Word(int id, String original_text, String translated_text, String phonetic, Integer isMark, String audio) {
         this.id = id;
         this.original_text = original_text;
         this.translated_text = translated_text;
         this.phonetic = phonetic;
-        this.audio = audio;
         this.isMark = isMark;
+        this.audio = audio;
     }
 
-    public Word(String original_text, String translated_text, String phonetic, String audio, Integer isMark) {
+    public Word(String original_text, String translated_text, String phonetic, Integer isMark, String audio) {
         this.original_text = original_text;
         this.translated_text = translated_text;
         this.phonetic = phonetic;

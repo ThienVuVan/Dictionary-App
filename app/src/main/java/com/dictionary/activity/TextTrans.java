@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.api.Function;
 
 public class TextTrans extends AppCompatActivity {
     private Button btnTran;
@@ -36,7 +37,6 @@ public class TextTrans extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         btnBack = findViewById(R.id.backButtontext);
         setSupportActionBar(toolbar);
-        // Loại bỏ tiểu đề mặc định
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));
@@ -55,9 +55,8 @@ public class TextTrans extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 API.getTranslate(textorigin.getText().toString(),1).thenAccept(text -> {
-
-                    txtTranslate.setText(text);
-                    // lấy text ở đây hiện lên màn hình,code ở trong đây, ko code ở ngoài.
+                    String cleanText = Function.removeOuterParentheses(text);
+                    txtTranslate.setText(cleanText);
                 }).exceptionally(throwable -> {
                     throwable.printStackTrace();
                     return null;
@@ -66,9 +65,8 @@ public class TextTrans extends AppCompatActivity {
         });
         btnEngtoVi.setOnClickListener( v ->{
             API.getTranslate(textorigin.getText().toString(),2).thenAccept(text -> {
-
-                txtTranslate.setText(text);
-                // lấy text ở đây hiện lên màn hình,code ở trong đây, ko code ở ngoài.
+                String cleanText = Function.removeOuterParentheses(text);
+                txtTranslate.setText(cleanText);
             }).exceptionally(throwable -> {
                 throwable.printStackTrace();
                 return null;
@@ -78,8 +76,6 @@ public class TextTrans extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(TextTrans.this, MainActivity.class);
-//                startActivity(i);
                 finish();
             }
         });

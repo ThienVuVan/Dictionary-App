@@ -17,7 +17,6 @@ public class API {
     public static CompletableFuture<ApiResult> getWordEnglish(String text) {
         CompletableFuture<ApiResult> future = new CompletableFuture<>();
 
-        // call api dictionary
         Call<List<WordResult>> callDictionary = RetrofitInstance.getDictionaryApi().getMeaning(text);
         callDictionary.enqueue(new Callback<List<WordResult>>() {
             @Override

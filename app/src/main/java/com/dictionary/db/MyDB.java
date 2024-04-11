@@ -57,8 +57,8 @@ public class MyDB extends SQLiteOpenHelper {
         values.put(OriginalText, word.getOriginal_text());
         values.put(TranslatedText, word.getTranslated_text());
         values.put(Phonetic, word.getPhonetic());
-        values.put(IsMark, word.getIsMark());
         values.put(Audio, word.getAudio());
+        values.put(IsMark, word.getIsMark());
         db.insert(WordTable, null, values);
         db.close();
     }
@@ -75,8 +75,8 @@ public class MyDB extends SQLiteOpenHelper {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getInt(5)
+                        cursor.getInt(4),
+                        cursor.getString(5)
                 );
                 list.add(word);
             } while (cursor.moveToNext());
@@ -98,8 +98,8 @@ public class MyDB extends SQLiteOpenHelper {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getInt(5)
+                        cursor.getInt(4),
+                        cursor.getString(5)
                 );
                 list.add(word);
             } while (cursor.moveToNext());
@@ -152,12 +152,12 @@ public class MyDB extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5)
+                    cursor.getInt(4),
+                    cursor.getString(5)
             );
             cursor.close();
         }
-        db.close();
+//        db.close();
         return word;
     }
 
