@@ -56,14 +56,14 @@ public class YourWordAdapter extends BaseAdapter {
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
         TextView txtDefine =v.findViewById(R.id.txtDefine);
-//        txtDefine.setText(data.get(position).getDefinition());
+        txtDefine.setText(data.get(position).getTranslated_text());
         ImageButton audioBtn = v.findViewById(R.id.btnAudio);
         ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
-//        if (data.get(position).getMark() == 1) {
-//            addToYourWord.setBackgroundResource(R.drawable.star_fill);
-//        } else {
-//            addToYourWord.setBackgroundResource(R.drawable.ic_favor);
-//        }
+        if (data.get(position).getIsMark() == 1) {
+            addToYourWord.setBackgroundResource(R.drawable.star_fill);
+        } else {
+            addToYourWord.setBackgroundResource(R.drawable.ic_favor);
+        }
 
         audioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +76,16 @@ public class YourWordAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 MyDB myDB = MyDB.getInstance(activity);
-//                if(data.get(position).getMark() == 1){
-//                    myDB.updateMark(data.get(position).getId(),0);
-//                    data.get(position).setMark(0);
-//                    updateData(data);
-//
-//                }else{
-//                    data.get(position).setMark(1);
-//                    updateData(data);
-//
-//                }
+                if(data.get(position).getIsMark() == 1){
+                    myDB.updateMark(data.get(position).getId(),0);
+                    data.get(position).setIsMark(0);
+                    updateData(data);
+
+                }else{
+                    data.get(position).setIsMark(1);
+                    updateData(data);
+
+                }
             }
         });
 

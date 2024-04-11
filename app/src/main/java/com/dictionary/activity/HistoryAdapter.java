@@ -60,10 +60,12 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
         TextView txtDefine =v.findViewById(R.id.txtDefine);
-        txtDefine.setText(data.get(position).getDefinition());
+        txtDefine.setText(data.get(position).getTranslated_text());
+        TextView phonetic = v.findViewById(R.id.txtPhonetic);
+        phonetic.setText(data.get(position).getPhonetic());
         ImageButton audioBtn = v.findViewById(R.id.btnAudio);
         ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
-        if (data.get(position).getMark() == 1) {
+        if (data.get(position).getIsMark() == 1) {
             addToYourWord.setBackgroundResource(R.drawable.star_fill);
         } else {
             addToYourWord.setBackgroundResource(R.drawable.ic_favor);
@@ -80,14 +82,14 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
             @Override
             public void onClick(View v) {
                 MyDB myDB = MyDB.getInstance(activity);
-                if(data.get(position).getMark() == 1){
+                if(data.get(position).getIsMark() == 1){
                     myDB.updateMark(data.get(position).getId(),0);
-                    data.get(position).setMark(0);
+                    data.get(position).setIsMark(0);
                     updateData(data);
 
                 }else{
                     myDB.updateMark(data.get(position).getId(),1);
-                    data.get(position).setMark(1);
+                    data.get(position).setIsMark(1);
                     updateData(data);
 
                 }

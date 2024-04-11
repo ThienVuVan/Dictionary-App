@@ -46,6 +46,9 @@ public class HistoryActivity extends AppCompatActivity {
         db = MyDB.getInstance(this);
         listWordHitory = db.getAllWords();
         btnBack = findViewById(R.id.backButton);
+        btnDel.setOnClickListener( v->{
+            DeleteWord();
+        });
         btnBack.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +106,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
     //delete word on database
-    public void DeleteWord(int id){
+    public void DeleteWord(){
         for (int i = listViewHistory.getChildCount() - 1; i >= 0; i--) {
             View v = listViewHistory.getChildAt(i);
             CheckBox cb = v.findViewById(R.id.checkItem);
