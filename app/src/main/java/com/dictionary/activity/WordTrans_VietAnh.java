@@ -32,7 +32,7 @@ import java.util.List;
 public class WordTrans_VietAnh extends AppCompatActivity {
     private TextView txtTranslated, txtPhonetic, txtWord;
     Toolbar toolbar;
-    ImageButton searchButton, backButton, volumeButton;
+    ImageButton searchButton, backButton, volumeButton,favorButton;
     EditText searchEditText;
     RecyclerView recyclerView;
     RecyclerViewItem adapter;
@@ -47,6 +47,8 @@ public class WordTrans_VietAnh extends AppCompatActivity {
         searchEditText = (EditText) findViewById(R.id.txtSearch);
         searchButton = (ImageButton) findViewById(R.id.searchButton);
         volumeButton = findViewById(R.id.volumeButton);
+        favorButton = findViewById(R.id.favorButton);
+
         txtTranslated = findViewById(R.id.translated_textview);
         txtWord = findViewById(R.id.word_textview);
         txtPhonetic = findViewById(R.id.phonetic_textview);
@@ -101,7 +103,23 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                 playAudio(currentWord.getAudio());
             }
         });
+        favorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDB db = MyDB.getInstance(getApplicationContext());
+                if(!db.isWordExists(currentWord.getOriginal_text())){
+                    currentWord.setIsMark(1);
+                    db.addWord(currentWord);
+                    favorButton.setImageResource(R.drawable.star_fill);
+                }else {
+                    Word word = db.getWordByOriginalText(currentWord.getOriginal_text());
+                    db.updateMark(word.getId(),1);
+                    favorButton.setImageResource(R.drawable.star_fill);
+                }
 
+
+            }
+        });
         // nếu ấn mark word
         // gọi api lấy ra word để ấy id theo current_word bên trênda lưu
         // sau đó gọi api đánh dấu mark word
