@@ -58,9 +58,9 @@ public class YourWordAdapter extends BaseAdapter implements Filterable {
         }
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
-        TextView txtDefine =v.findViewById(R.id.txtDefine);
+        TextView txtDefine =v.findViewById(R.id.txtdefine);
         txtDefine.setText(data.get(position).getTranslated_text());
-        TextView txtPhonetic =v.findViewById(R.id.txtPhonetic);
+        TextView txtPhonetic =v.findViewById(R.id.textphonetic);
         txtPhonetic.setText(data.get(position).getPhonetic());
         ImageButton audioBtn = v.findViewById(R.id.btnAudio);
         ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
