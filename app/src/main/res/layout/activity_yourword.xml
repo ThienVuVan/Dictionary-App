@@ -57,14 +57,14 @@
             android:layout_height="wrap_content"
             android:text="Ôn luyện"/>
         <Button
-            android:id="@+id/ybtnSellectAll"
+            android:id="@+id/ybtnDel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Xóa"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"/>
         <Button
-            android:id="@+id/ybtnDel"
+            android:id="@+id/ybtnSellectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đánh dấu hết"/>

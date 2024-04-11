@@ -61,9 +61,9 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
         }
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
-        TextView txtDefine =v.findViewById(R.id.txtdefine);
+        TextView txtDefine =v.findViewById(R.id.txtDefine);
         txtDefine.setText(data.get(position).getTranslated_text());
-        TextView phonetic = v.findViewById(R.id.textphonetic);
+        TextView phonetic = v.findViewById(R.id.txtPhonetic);
         phonetic.setText(data.get(position).getPhonetic());
         ImageButton audioBtn = v.findViewById(R.id.btnAudio);
         ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
@@ -101,12 +101,11 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(activity.getApplicationContext(),WordTrans.class);
-//                Bundle b = new Bundle();
-//                b.putString("word",data.get(position).getOriginal_text());
-//                intent.putExtras(b);
-//                activity.getApplicationContext().startActivity(intent);
-                Toast.makeText(activity,"test",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity.getApplicationContext(),WordTrans.class);
+                Bundle b = new Bundle();
+                b.putString("word",data.get(position).getOriginal_text());
+                intent.putExtras(b);
+                activity.startActivity(intent);
             }
         });
         return v;

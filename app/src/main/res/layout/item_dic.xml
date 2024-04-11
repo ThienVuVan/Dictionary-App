@@ -29,7 +29,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
-                            android:id="@+id/textphonetic"
+                            android:id="@+id/txtPhonetic"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4sp"
@@ -37,7 +37,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/txtdefine"
+                            android:id="@+id/txtDefine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4sp"

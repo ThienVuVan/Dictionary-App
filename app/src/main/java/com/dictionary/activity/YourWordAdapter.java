@@ -58,9 +58,9 @@ public class YourWordAdapter extends BaseAdapter implements Filterable {
         }
         TextView txtWord =v.findViewById(R.id.txtWord);
         txtWord.setText(data.get(position).getOriginal_text());
-        TextView txtDefine =v.findViewById(R.id.txtdefine);
+        TextView txtDefine =v.findViewById(R.id.txtDefine);
         txtDefine.setText(data.get(position).getTranslated_text());
-        TextView txtPhonetic =v.findViewById(R.id.textphonetic);
+        TextView txtPhonetic =v.findViewById(R.id.txtPhonetic);
         txtPhonetic.setText(data.get(position).getPhonetic());
         ImageButton audioBtn = v.findViewById(R.id.btnAudio);
         ImageButton addToYourWord = v.findViewById(R.id.btnAddToYourWord);
@@ -102,7 +102,7 @@ public class YourWordAdapter extends BaseAdapter implements Filterable {
                 Bundle b = new Bundle();
                 b.putString("word",data.get(position).getOriginal_text());
                 intent.putExtras(b);
-                activity.getApplicationContext().startActivity(intent);
+                activity.startActivity(intent);
             }
         });
         return v;

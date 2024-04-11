@@ -120,6 +120,7 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                                 return;
                             }
                             Word newWord = apiResult.getWord();
+                            currentWord = newWord;
                             List<WordDetail> wordDetailList = apiResult.getWordDetailList();
                             adapter.setData(wordDetailList);
                             recyclerView.setAdapter(adapter);
