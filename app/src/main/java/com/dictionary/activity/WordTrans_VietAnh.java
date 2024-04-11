@@ -18,6 +18,7 @@ import com.dictionary.MainActivity;
 import com.dictionary.R;
 import com.dictionary.api.API;
 import com.dictionary.api.Function;
+import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 import com.dictionary.model.WordDetail;
 import com.google.android.material.tabs.TabLayout;
@@ -44,20 +45,17 @@ public class WordTrans_VietAnh extends AppCompatActivity {
         txtTranslated = findViewById(R.id.translated_textview);
         txtWord = findViewById(R.id.word_textview);
         txtPhonetic = findViewById(R.id.phonetic_textview);
-//RecyclerView
+
         recyclerView = findViewById(R.id.recycler2);
         adapter = new RecyclerViewItem(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-//      Xử lí xuất hiện search bar
         searchEditText.setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (searchEditText.getVisibility() == View.GONE) {
-                    // Hiển thị EditText và ẩn các nút khác
                     searchEditText.setVisibility(View.VISIBLE);
-//                    findViewById(R.id.toolbar_title).setVisibility(View.GONE);
                     findViewById(R.id.favorButton).setVisibility(View.GONE);
                     findViewById(R.id.noteButton).setVisibility(View.GONE);
                     searchButton.setVisibility(View.GONE);
@@ -68,13 +66,10 @@ public class WordTrans_VietAnh extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (searchEditText.getVisibility() == View.GONE && searchButton.getVisibility() == View.VISIBLE) {
-//                    Intent i = new Intent(WordTrans_VietAnh.this, MainActivity.class);
-//                    startActivity(i);
                     finish();
                 }
                 if (searchButton.getVisibility() == View.GONE) {
                     searchEditText.setVisibility(View.GONE);
-//                    findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
                     findViewById(R.id.favorButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.noteButton).setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.VISIBLE);
@@ -90,6 +85,10 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                                 String cleanedText = Function.removeOuterParentheses(text);
                                 return API.getWordEnglish(cleanedText)
                                         .thenAccept(apiResult -> {
+                                            if(apiResult == null){
+                                                // thông báo từ không tồn tại
+                                                return;
+                                            }
                                             Word newWord = apiResult.getWord();
                                             List<WordDetail> wordDetailList = apiResult.getWordDetailList();
                                             adapter.setData(wordDetailList);
@@ -98,25 +97,15 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                                             txtWord.setText(newWord.getOriginal_text());
                                             txtPhonetic.setText(newWord.getPhonetic());
                                             txtTranslated.setText(Function.removeOuterParentheses(newWord.getTranslated_text()));
-                                            // gọi api xem word đã có trong table chưa, api trả về true/false
-//                                // nếu có thì ko lưu
-//                                // ko có thì lưu word vào db
-//                                // ko có thì lưu word vào db
-//                                MyDB db = MyDB.getInstance(getApplicationContext());
-//                                if(!db.isWordExists(newWord.getOriginal_text())){
-//                                    // lưu vào db
-//                                    db.addWord(newWord);
-//                                    Log.d("MyDB", "done");
-//                                }else {
-//                                    Log.d("MyDB", "Từ đã tồn tại trong cơ sở dữ liệu: " + newWord.getOriginal_text());
-//                                }
-                                        })
-                                        .exceptionally(throwable -> {
+
+                                            MyDB db = MyDB.getInstance(getApplicationContext());
+                                            if(!db.isWordExists(newWord.getOriginal_text())) db.addWord(newWord);
+
+                                        }).exceptionally(throwable -> {
                                             throwable.printStackTrace();
                                             return null;
                                         });
-                            })
-                            .exceptionally(throwable -> {
+                            }).exceptionally(throwable -> {
                                 throwable.printStackTrace();
                                 return null;
                             });
@@ -124,5 +113,11 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                 return false;
             }
         });
+
+        // nếu ấn mark word
+        // gọi api lấy ra word để ấy id theo current_word bên trênda lưu
+        // sau đó gọi api đánh dấu mark word
+        // khi đánh dấu thành công thì thay đổi màu ngôi sao
+
     }
 }
