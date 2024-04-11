@@ -51,8 +51,11 @@ public class YourWordActivity extends AppCompatActivity {
                 if(cb.isChecked()){
                     Word w = listYourWord.get(i);
                     db.updateMark(w.getId(),0);
+                    listYourWord.remove(i);
+
                 }
             }
+            yourWordAdapter.notifyDataSetChanged();
         });
 
         btnBack.setNavigationOnClickListener(new View.OnClickListener() {

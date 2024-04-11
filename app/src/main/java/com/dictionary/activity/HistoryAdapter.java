@@ -1,9 +1,11 @@
 package com.dictionary.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +101,11 @@ public class HistoryAdapter extends BaseAdapter implements Filterable {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity,"test",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(activity.getApplicationContext(),WordTrans.class);
+                Bundle b = new Bundle();
+                b.putString("word",data.get(position).getOriginal_text());
+                intent.putExtras(b);
+                activity.getApplicationContext().startActivity(intent);
             }
         });
         return v;

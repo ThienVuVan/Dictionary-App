@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnSetting = findViewById(R.id.btnSetting);
         txtSearch = findViewById(R.id.txtSearch);
         toolbar = findViewById(R.id.toolbar3);
+        MyDB db = MyDB.getInstance(this);
         setSupportActionBar(toolbar);
 
         //Intent điều hướng

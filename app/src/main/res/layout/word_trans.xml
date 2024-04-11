@@ -124,14 +124,14 @@
                 android:padding="10dp"
                 android:src="@drawable/ic_volume" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/part_of_speech_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Type"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/part_of_speech_textview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Type"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="match_parent"
@@ -147,63 +147,13 @@
             android:layout_height="wrap_content"
             android:text="1 defination \n\n 2 another" />
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            tools:listitem="@layout/item_test"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Definitions : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/definitions_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1 defination \n\n 2 another \n\n 3 third" />
-
-        <TextView
-            android:id="@+id/synonyms_title_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Synonyms : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/synonyms_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="asad, asaad, asdia ,asdajod" />
-
-        <TextView
-            android:id="@+id/antonyms_title_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Antonyms : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/antonyms_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="asad, asaad, asdia ,asdajod" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Example : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/example_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1 defination \n\n 2 another" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp" />
 
     </LinearLayout>
 
