@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class WordTrans extends AppCompatActivity {
+
     private TextView txtTranslated,txtPhonetic,txtWord;
     Toolbar toolbar;
     ImageButton searchButton, backButton, volumeButton;
