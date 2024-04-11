@@ -29,15 +29,6 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/white" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/toolbar_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:paddingLeft="16dp"-->
-<!--            android:text="hello"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="20sp" />-->
 
         <ImageButton
             android:id="@+id/favorButton"
@@ -126,14 +117,11 @@
                 android:src="@drawable/ic_volume" />
         </LinearLayout>
         <TextView
-            android:id="@+id/part_of_speech_textview"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Type"
+            android:text="/t e s t/"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
+            android:id="@+id/phonetic_textview"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -146,66 +134,15 @@
             android:id="@+id/translated_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1 defination \n\n 2 another" />
+            android:layout_marginStart="10dp"
+            android:text="\n\n" />
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Definitions : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/definitions_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1 defination \n\n 2 another \n\n 3 third" />
-
-        <TextView
-            android:id="@+id/synonyms_title_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Synonyms : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/synonyms_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="asad, asaad, asdia ,asdajod" />
-
-        <TextView
-            android:id="@+id/antonyms_title_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Antonyms : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/antonyms_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="asad, asaad, asdia ,asdajod" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Example : "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/example_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1 defination \n\n 2 another" />
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp" />
     </LinearLayout>
 
 </LinearLayout>

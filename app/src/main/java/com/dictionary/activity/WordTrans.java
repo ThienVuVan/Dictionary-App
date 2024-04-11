@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 
 import com.dictionary.R;
 import com.dictionary.api.API;
+import com.dictionary.api.Function;
 import com.dictionary.api.Meaning;
 import com.dictionary.api.WordResult;
+import com.dictionary.db.MyDB;
 import com.dictionary.model.Word;
 import com.dictionary.model.WordDetail;
 import com.google.android.material.tabs.TabLayout;
@@ -26,18 +29,14 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.List;
 
 public class WordTrans extends AppCompatActivity {
-    private TextView txtTranslated;
-    private TextView txtWord;
-    private TextView txtDefination;
-    private TextView txtSyn;
-    private TextView txtAnt;
-    private TextView txtExample;
+    private TextView txtTranslated,txtPhonetic,txtWord;
     Toolbar toolbar;
     ImageButton searchButton, backButton;
     EditText searchEditText;
-
     RecyclerView recyclerView;
     RecyclerViewItem adapter;
+    private Word currWord;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +47,11 @@ public class WordTrans extends AppCompatActivity {
         searchEditText = (EditText) findViewById(R.id.txtSearch);
 
         searchButton = (ImageButton) findViewById(R.id.searchButton);
-        txtTranslated  = findViewById(R.id.translated_textview);
-//        txtDefination = findViewById(R.id.definitions_textview);
-//        txtSyn = findViewById(R.id.synonyms_textview);
-//        txtAnt = findViewById(R.id.antonyms_textview);
-//        txtExample = findViewById(R.id.example_textview);
-        txtWord = findViewById(R.id.word_textview);
 
+        txtTranslated  = findViewById(R.id.translated_textview);
+        txtWord = findViewById(R.id.word_textview);
+        txtPhonetic = findViewById(R.id.phonetic_textview);
+//RecyclerView
         recyclerView = findViewById(R.id.recycler);
         adapter = new RecyclerViewItem(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
@@ -99,47 +96,27 @@ public class WordTrans extends AppCompatActivity {
                     API.getWordEnglish(searchEditText.getText().toString())
                             .thenAccept(apiResult -> {
                                 Word newWord = apiResult.getWord();
+                                currWord = newWord;
                                 List<WordDetail> wordDetailList = apiResult.getWordDetailList();
-
-                                // in ra màn hình trên đầu
-                                String original_text = newWord.getOriginal_text();
-                                String translate_text = newWord.getTranslated_text();
-                                String phonetic = newWord.getPhonetic();
-                                String audio = newWord.getAudio();
-                                System.out.println(newWord);
                                 adapter.setData(wordDetailList);
                                 recyclerView.setAdapter(adapter);
 
-                                // sau đây là lặp qua các loại từ và in ra màn hình
-                                // lặp qua bao nhiêu in bấy nhiêu.
-                                for(WordDetail wordDetail : wordDetailList){
-                                    String type = wordDetail.getType();
-                                    String definition = wordDetail.getDefinition();
-                                    String example = wordDetail.getExample();
-                                    String synonyms = wordDetail.getSynonyms();
-                                    String antonyms = wordDetail.getAntonyms();
-                                    System.out.println(wordDetail);
-
-                                }
-//                                Word newWord = word;
                                 txtWord.setText(newWord.getOriginal_text());
-                                txtTranslated.setText(newWord.getTranslated_text());
-////                                txtDefination.setText(newWord.getDefinition());
-////                                txtSyn.setText(newWord.getSynonyms());
-////                                txtAnt.setText(newWord.getAntonyms());
-////                                txtExample.setText(newWord.getExample());
+                                txtPhonetic.setText(newWord.getPhonetic());
+                                txtTranslated.setText(Function.removeOuterParentheses(newWord.getTranslated_text()));
+
 //                                // gọi api xem word đã có trong table chưa, api trả về true/false
 //                                // nếu có thì ko lưu
 //                                // ko có thì lưu word vào db
 //                                // ko có thì lưu word vào db
-//                                MyDB db = MyDB.getInstance(getApplicationContext());
-//                                if(!db.isWordExists(newWord.getOriginal_text())){
-//                                    // lưu vào db
-//                                    db.addWord(newWord);
-//                                    Log.d("MyDB", "done");
-//                                }else {
-//                                    Log.d("MyDB", "Từ đã tồn tại trong cơ sở dữ liệu: " + newWord.getOriginal_text());
-//                                }
+                                MyDB db = MyDB.getInstance(getApplicationContext());
+                                if(!db.isWordExists(newWord.getOriginal_text())){
+                                    // lưu vào db
+                                    db.addWord(newWord);
+                                    Log.d("MyDB", "done");
+                                }else {
+                                    Log.d("MyDB", "Từ đã tồn tại trong cơ sở dữ liệu: " + newWord.getOriginal_text());
+                                }
 
                             })
                             .exceptionally(throwable -> {
