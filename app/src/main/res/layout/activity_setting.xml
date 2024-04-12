@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgroundColor1"
     tools:context=".activity.Setting">
 
     <androidx.appcompat.widget.Toolbar
@@ -36,23 +37,11 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <Switch
-        android:id="@+id/swtNoti"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nhận thông báo" />
-
-    <Switch
-        android:id="@+id/swtTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chế độ ban đêm" />
-
     <Button
-        android:id="@+id/btnReset"
+        android:id="@+id/btnTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Khôi phục mặc định" />
+        android:text="Bật chế độ ban đêm" />
 
     <Button
         android:id="@+id/btnDelData"

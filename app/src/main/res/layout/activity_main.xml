@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#79CFF6"
+    android:background="@color/backgroundColor1"
     android:orientation="vertical">
 
 
@@ -34,7 +34,6 @@
             android:hint="Search..."
             android:inputType="text"
             android:padding="5dp"
-            android:textColor="@color/black"
             android:textSize="14dp" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -45,9 +44,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/buttonColor"
         android:text="Tra cứu tiếng việt - tiếng anh"
-        android:textColor="#000000"
+        android:textColor="@color/textColor"
         app:icon="@android:drawable/ic_menu_send"
         app:iconTint="#FF9800" />
 
@@ -58,9 +57,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/buttonColor"
         android:text="Dịch văn bản"
-        android:textColor="#000000" />
+        android:textColor="@color/textColor"  />
 
     <Button
         android:id="@+id/btnYourword"
@@ -69,9 +68,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/buttonColor"
         android:text="Từ của bạn"
-        android:textColor="#000000" />
+        android:textColor="@color/textColor"  />
 
     <Button
         android:id="@+id/btnHistory"
@@ -80,9 +79,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/buttonColor"
         android:text="Từ đã tra "
-        android:textColor="#000000" />
+        android:textColor="@color/textColor"  />
 
     <Button
         android:id="@+id/btnSetting"
@@ -91,8 +90,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/buttonColor"
         android:text="Cài đặt"
-        android:textColor="#000000" />
+        android:textColor="@color/textColor" />
 
 </LinearLayout>
