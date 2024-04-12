@@ -6,9 +6,9 @@
     <color name="bluedam">#2764FD</color>
     <color name="gray">#DCDCDC</color>
 
-    <!-- for Light mode -->
-    <color name="backgroundColor1">#B6F2FF</color>
-    <color name="backgroundColor2">#DCDCDC</color>
-    <color name="textColor">#000000</color>
-    <color name="buttonColor">#74b9ff</color>
+    <!-- for Dark mode-->
+    <color name="backgroundColor1">#5C5B5B</color>
+    <color name="backgroundColor2">#5C5B5B</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="buttonColor">#0984e3</color>
 </resources>

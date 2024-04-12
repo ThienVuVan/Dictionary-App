@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/backgroundColor2"
     android:orientation="vertical"
     app:layoutDescription="@xml/word_trans_scene">
 
@@ -102,7 +102,7 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="8dp"
                 android:text="word"
-                android:textColor="#1565C0"
+                android:textColor="@color/textColor"
                 android:textSize="35sp"
                 android:textStyle="bold" />
 
@@ -128,15 +128,16 @@
             android:id="@+id/phonetic_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\n"
-            android:textColor="@color/black" />
-
+            android:text="/t e s t/"
+            android:textColor="@color/textColor"
+            android:id="@+id/phonetic_textview"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TranslatedText : "
             android:textSize="16sp"
+            android:textColor="@color/textColor"
             android:textStyle="bold" />
 
         <TextView
@@ -144,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textColor="@color/textColor"
             android:text="\n\n" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -152,7 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:background="@color/gray" />
 
     </LinearLayout>
 

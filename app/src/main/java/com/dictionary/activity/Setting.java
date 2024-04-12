@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -13,37 +16,74 @@ import android.widget.Switch;
 
 import com.dictionary.MainActivity;
 import com.dictionary.R;
+import com.dictionary.db.MyDB;
 
 public class Setting extends AppCompatActivity {
     private ImageButton btnBack;
-    private Switch swtTheme;
+    private Button btnTheme,btnDelData,btnEmail;
+    private MyDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
         btnBack = findViewById(R.id.backButton);
-        swtTheme = findViewById(R.id.swtTheme);
+        btnTheme = findViewById(R.id.btnTheme);
+        btnDelData = findViewById(R.id.btnDelData);
+        btnEmail = findViewById(R.id.btnEmail);
 
+        db = MyDB.getInstance(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            btnTheme.setText("Tắt chế độ ban đêm");
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            btnTheme.setText("Bật chế độ ban đêm");
+        }
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(Setting.this, MainActivity.class);
-//                startActivity(i);
                 finish();
             }
         });
-        swtTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnTheme.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(swtTheme.isChecked()){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    swtTheme.setText("Chế độ ban đêm đang bật");
+            public void onClick(View v) {
+                if(isDarkModeOn){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean("isDarkModeOn",false);
+                    editor.apply();
+                    btnTheme.setText("Bật chế độ ban đêm");
                 }
                 else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("isDarkModeOn", true);
+                    editor.apply();
+                    btnTheme.setText("Tắt chế độ ban đêm");
                 }
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    swtTheme.setText("Chế độ ban đêm đang tắt");
+            }
+        });
+        btnDelData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteAllWords();
+            }
+        });
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto: "+"dictionaryapp@gmail.com"));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Báo lỗi và góp ý");
+//                if (intent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(intent);
+//                }
+                startActivity(intent);
             }
         });
     }
