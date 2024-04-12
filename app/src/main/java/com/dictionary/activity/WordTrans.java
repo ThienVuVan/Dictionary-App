@@ -59,7 +59,11 @@ public class WordTrans extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        searchEditText.setVisibility(View.GONE);
+//        searchEditText.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.VISIBLE);
+        findViewById(R.id.favorButton).setVisibility(View.GONE);
+        findViewById(R.id.noteButton).setVisibility(View.GONE);
+        findViewById(R.id.searchButton).setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +104,12 @@ public class WordTrans extends AppCompatActivity {
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
                     String word = searchEditText.getText().toString();
                     ApiAction(word);
+                    searchEditText.setVisibility(View.GONE);
+                    findViewById(R.id.favorButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.noteButton).setVisibility(View.VISIBLE);
+                    searchButton.setVisibility(View.VISIBLE);
+
+
                 }
                 return false;
             }
