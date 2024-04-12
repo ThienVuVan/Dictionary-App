@@ -60,7 +60,7 @@ public class MyDB extends SQLiteOpenHelper {
         values.put(Audio, word.getAudio());
         values.put(IsMark, word.getIsMark());
         db.insert(WordTable, null, values);
-        db.close();
+//        db.close();
     }
 
     public ArrayList<Word> getAllWords() {
@@ -82,7 +82,7 @@ public class MyDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             cursor.close();
         }
-        db.close();
+//        db.close();
         return list;
     }
 
@@ -105,7 +105,7 @@ public class MyDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             cursor.close();
         }
-        db.close();
+//        db.close();
         return list;
     }
 
@@ -114,7 +114,7 @@ public class MyDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(IsMark, markStatus);
         db.update(WordTable, values, WordId + " = ?", new String[]{String.valueOf(wordId)});
-        db.close();
+//        db.close();
     }
 
     public void deleteMark(int wordId) {
@@ -122,13 +122,13 @@ public class MyDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(IsMark, 0); // Assuming 0 means unmarked
         db.update(WordTable, values, WordId + " = ?", new String[]{String.valueOf(wordId)});
-        db.close();
+//        db.close();
     }
 
     public void deleteWord(int wordId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(WordTable, WordId + " = ?", new String[]{String.valueOf(wordId)});
-        db.close();
+//        db.close();
     }
 
     public boolean isWordExists(String originalText) {
@@ -137,7 +137,7 @@ public class MyDB extends SQLiteOpenHelper {
                 new String[]{originalText}, null, null, null);
         boolean exists = cursor.moveToFirst();
         cursor.close();
-        db.close();
+//        db.close();
         return exists;
     }
 

@@ -14,8 +14,9 @@
             android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/top_navigation_bar_name_tu_cua_ban"
+            app:title="@string/top_navigation_bar_name_tu_da_tra"
             app:navigationIcon="@drawable/ic_arrow_back"
+
             style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,7 +41,7 @@
     <ListView
         android:id="@+id/listHistory"
         android:layout_width="389dp"
-        android:layout_height="578dp"
+        android:layout_height="505dp"
         android:layout_gravity="center"
         android:background="@drawable/round_conner"
         tools:listitem="@layout/item_dic" />

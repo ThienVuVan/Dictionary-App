@@ -1,5 +1,9 @@
 package com.dictionary.activity;
 
+import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,10 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dictionary.R;
 import com.dictionary.api.API;
@@ -26,12 +26,14 @@ import com.dictionary.model.Word;
 import com.dictionary.model.WordDetail;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.IOException;
 import java.util.List;
 
 public class WordTrans extends AppCompatActivity {
+
     private TextView txtTranslated,txtPhonetic,txtWord;
     Toolbar toolbar;
-    ImageButton searchButton, backButton;
+    ImageButton searchButton, backButton, volumeButton, favorButton;
     EditText searchEditText;
     RecyclerView recyclerView;
     RecyclerViewItem adapter;
@@ -44,13 +46,14 @@ public class WordTrans extends AppCompatActivity {
 
         backButton = (ImageButton) findViewById(R.id.backButtontext);
         searchEditText = (EditText) findViewById(R.id.txtSearch);
-
         searchButton = (ImageButton) findViewById(R.id.searchButton);
+        volumeButton = findViewById(R.id.volumeButton);
+        favorButton = findViewById(R.id.favorButton);
 
         txtTranslated  = findViewById(R.id.translated_textview);
         txtWord = findViewById(R.id.word_textview);
         txtPhonetic = findViewById(R.id.phonetic_textview);
-
+//RecyclerView
         recyclerView = findViewById(R.id.recycler);
         adapter = new RecyclerViewItem(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
@@ -71,6 +74,7 @@ public class WordTrans extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(currentWord);
                 if(searchEditText.getVisibility() == View.GONE && searchButton.getVisibility() == View.VISIBLE){
                     finish();
                 }
@@ -82,42 +86,98 @@ public class WordTrans extends AppCompatActivity {
                 }
             }
         });
+
+        // check intent
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            ApiAction(bundle.getString("word"));
+        }
+
         searchEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
-                    API.getWordEnglish(searchEditText.getText().toString())
-                            .thenAccept(apiResult -> {
-                                if(apiResult == null){
-                                    // thông báo từ không tồn tại
-                                    return;
-                                }
-                                Word newWord = apiResult.getWord();
-                                currentWord = newWord;
-                                List<WordDetail> wordDetailList = apiResult.getWordDetailList();
-                                adapter.setData(wordDetailList);
-                                recyclerView.setAdapter(adapter);
-
-                                txtWord.setText(newWord.getOriginal_text());
-                                txtPhonetic.setText(newWord.getPhonetic());
-                                txtTranslated.setText(Function.removeOuterParentheses(newWord.getTranslated_text()));
-
-                                MyDB db = MyDB.getInstance(getApplicationContext());
-                                if(!db.isWordExists(newWord.getOriginal_text())) db.addWord(newWord);
-
-                            }).exceptionally(throwable -> {
-                                throwable.printStackTrace();
-                                return null;
-                            });
+                    String word = searchEditText.getText().toString();
+                    ApiAction(word);
                 }
                 return false;
             }
         });
 
-        // nếu ấn mark word
-        // gọi api lấy ra word để ấy id theo current_word bên trênda lưu
-        // sau đó gọi api đánh dấu mark word = 1
-        // khi đánh dấu thành công thì thay đổi màu ngôi sao
+        // audio
+        volumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(currentWord.getAudio());
+                playAudio(currentWord.getAudio());
+            }
+        });
+        favorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDB db = MyDB.getInstance(getApplicationContext());
+                if(!db.isWordExists(currentWord.getOriginal_text())){
+                   currentWord.setIsMark(1);
+                   db.addWord(currentWord);
+                    favorButton.setImageResource(R.drawable.star_fill);
+                }else {
+                    Word word = db.getWordByOriginalText(currentWord.getOriginal_text());
+                    db.updateMark(word.getId(),1);
+                    favorButton.setImageResource(R.drawable.star_fill);
+                }
 
+
+            }
+        });
+    }
+
+    private void ApiAction(String word){
+        API.getWordEnglish(word.toLowerCase())
+            .thenAccept(apiResult -> {
+                if(apiResult == null){
+                    // thông báo từ không tồn tại
+                    return;
+                }
+                Word newWord = apiResult.getWord();
+                newWord.setOriginal_text(newWord.getOriginal_text().toLowerCase());
+                currentWord = newWord;
+                List<WordDetail> wordDetailList = apiResult.getWordDetailList();
+                adapter.setData(wordDetailList);
+                recyclerView.setAdapter(adapter);
+
+                txtWord.setText(newWord.getOriginal_text());
+                txtPhonetic.setText(newWord.getPhonetic());
+                txtTranslated.setText(Function.removeOuterParentheses(newWord.getTranslated_text()));
+
+                MyDB db = MyDB.getInstance(getApplicationContext());
+                if(!db.isWordExists(newWord.getOriginal_text())) db.addWord(newWord);
+                System.out.println(newWord);
+
+            }).exceptionally(throwable -> {
+                throwable.printStackTrace();
+                return null;
+            });
+    }
+
+    public void playAudio(String audioUrl){
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build());
+
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to play audio", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -29,7 +29,7 @@
             android:paddingBottom="20dp">
 
         <EditText
-                android:id="@+id/searchText"
+                android:id="@+id/ysearchText"
                 android:layout_width="389dp"
                 android:layout_height="58dp"
                 android:background="@drawable/round_conner"
@@ -40,6 +40,7 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/yourWordList"
         android:layout_width="389dp"
         android:layout_height="500dp"
         android:layout_gravity="center"
@@ -57,12 +58,14 @@
             android:layout_height="wrap_content"
             android:text="Ôn luyện"/>
         <Button
+            android:id="@+id/ybtnDel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Xóa"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"/>
         <Button
+            android:id="@+id/ybtnSellectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đánh dấu hết"/>
