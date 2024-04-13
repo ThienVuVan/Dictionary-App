@@ -30,7 +30,7 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         createNotificationChanel(context);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notify")
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("You have an notify from Dictionary!!!!")
                 .setContentText("Từ của ngày hôm nay là : Enjoy live!")
                 .setPriority(Notification.PRIORITY_DEFAULT)
