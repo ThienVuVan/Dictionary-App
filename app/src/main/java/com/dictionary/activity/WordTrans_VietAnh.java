@@ -143,7 +143,7 @@ public class WordTrans_VietAnh extends AppCompatActivity {
                 return API.getWordEnglish(cleanedText.toLowerCase())
                         .thenAccept(apiResult -> {
                             if (apiResult == null) {
-                                // thông báo từ không tồn tại
+                                Toast.makeText(WordTrans_VietAnh.this,"Từ bạn tra không tồn tại!!!",Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             Word newWord = apiResult.getWord();

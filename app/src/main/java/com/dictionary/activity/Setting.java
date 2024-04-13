@@ -1,8 +1,10 @@
 package com.dictionary.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -71,8 +73,25 @@ public class Setting extends AppCompatActivity {
         btnDelData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteAllWords();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Setting.this);
+                builder.setMessage("Ban Co muon soa khong");
+
+                builder.setPositiveButton("co", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.deleteAllWords();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("khong", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
             }
+
         });
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override

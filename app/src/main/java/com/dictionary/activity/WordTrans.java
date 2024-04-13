@@ -146,7 +146,8 @@ public class WordTrans extends AppCompatActivity {
         API.getWordEnglish(word.toLowerCase())
             .thenAccept(apiResult -> {
                 if(apiResult == null){
-                    // thông báo từ không tồn tại
+                    System.out.println("test");
+                    Toast.makeText(WordTrans.this,"Từ bạn tra không tồn tại!!",Toast.LENGTH_LONG).show();
                     return;
                 }
                 Word newWord = apiResult.getWord();
