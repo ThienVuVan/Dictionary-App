@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
+        android:theme="?attr/actionBarTheme">
+
         <ImageButton
             android:id="@+id/backButtontext"
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
             android:contentDescription="back"
             android:src="@drawable/ic_search"
             app:tint="@color/white" />
+
         <EditText
             android:id="@+id/txtSearch"
             android:layout_width="match_parent"
@@ -40,58 +42,71 @@
     <Button
         android:id="@+id/btnVietAnh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/buttonColor"
-        android:text="Tra cứu tiếng việt - tiếng anh"
+        android:drawableLeft="@drawable/ic_search"
+        android:gravity="center_vertical"
+        android:text="\t\tTra cứu tiếng việt - tiếng anh"
         android:textColor="@color/textColor"
-        app:icon="@android:drawable/ic_menu_send"
-        app:iconTint="#FF9800" />
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btnTextTrans"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/buttonColor"
-        android:text="Dịch văn bản"
-        android:textColor="@color/textColor"  />
+        android:drawableLeft="@drawable/ic_txt"
+        android:gravity="center_vertical"
+        android:text="\t\t\t\t\t\t\tDịch văn bản"
+        android:textColor="@color/textColor"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btnYourword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/buttonColor"
-        android:text="Từ của bạn"
-        android:textColor="@color/textColor"  />
+        android:drawableLeft="@drawable/ic_list"
+        android:gravity="center_vertical"
+        android:text="\t\t\t\t\t\t\tTừ của bạn"
+        android:textColor="@color/textColor"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btnHistory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/buttonColor"
-        android:text="Từ đã tra "
-        android:textColor="@color/textColor"  />
+        android:drawableLeft="@drawable/ic_menu_history"
+        android:gravity="center_vertical"
+        android:text="\t\t\t\t\t\t\t\tTừ đã tra"
+        android:textColor="@color/textColor"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btnSetting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/buttonColor"
-        android:text="Cài đặt"
-        android:textColor="@color/textColor" />
+        android:drawableLeft="@drawable/ic_list"
+        android:gravity="center_vertical"
+        android:text="\t\t\t\t\t\t\t\t\tCài đặt"
+        android:textColor="@color/textColor"
+        android:textSize="16dp" />
 
 </LinearLayout>
